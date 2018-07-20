@@ -21,6 +21,9 @@
 		B05E9589210042FA007420B5 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05E9588210042FA007420B5 /* MainViewModel.swift */; };
 		B05E958B21004309007420B5 /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05E958A21004309007420B5 /* ContactViewModel.swift */; };
 		B05E958D21004F0F007420B5 /* ScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05E958C21004F0F007420B5 /* ScannerController.swift */; };
+		B060533C2101674D0035EB5F /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060533B2101674D0035EB5F /* EditController.swift */; };
+		B060533F2101C38D0035EB5F /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060533E2101C38D0035EB5F /* EditViewModel.swift */; };
+		B06053412101C9CA0035EB5F /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06053402101C9CA0035EB5F /* Structs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		B05E9588210042FA007420B5 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		B05E958A21004309007420B5 /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
 		B05E958C21004F0F007420B5 /* ScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerController.swift; sourceTree = "<group>"; };
+		B060533B2101674D0035EB5F /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditController.swift; sourceTree = "<group>"; };
+		B060533E2101C38D0035EB5F /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
+		B06053402101C9CA0035EB5F /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				B05E957B21002F87007420B5 /* AppManager */,
+				B060533D210167530035EB5F /* EditView */,
 				B05E957C21002FB2007420B5 /* MainView */,
 				B05E958E21004F13007420B5 /* ScannerView */,
 				B05E957F2100424B007420B5 /* ContactView */,
@@ -80,6 +87,7 @@
 				B05E957221002F5B007420B5 /* LaunchScreen.storyboard */,
 				B05E957521002F5B007420B5 /* Info.plist */,
 				B05E956D21002F5B007420B5 /* contactsApp.xcdatamodeld */,
+				B06053402101C9CA0035EB5F /* Structs.swift */,
 			);
 			path = contactsApp;
 			sourceTree = "<group>";
@@ -123,6 +131,15 @@
 			path = ScannerView;
 			sourceTree = "<group>";
 		};
+		B060533D210167530035EB5F /* EditView */ = {
+			isa = PBXGroup;
+			children = (
+				B060533B2101674D0035EB5F /* EditController.swift */,
+				B060533E2101C38D0035EB5F /* EditViewModel.swift */,
+			);
+			path = EditView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,7 +167,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Enthusio;
 				TargetAttributes = {
 					B05E956221002F5B007420B5 = {
@@ -196,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B05E9585210042A3007420B5 /* ContactExpandedCell.swift in Sources */,
+				B060533C2101674D0035EB5F /* EditController.swift in Sources */,
 				B05E95832100428E007420B5 /* ContactCell.swift in Sources */,
 				B05E9587210042CC007420B5 /* PlatformCell.swift in Sources */,
 				B05E956921002F5B007420B5 /* MainViewController.swift in Sources */,
@@ -204,7 +222,9 @@
 				B05E957E21004245007420B5 /* ContactController.swift in Sources */,
 				B05E958B21004309007420B5 /* ContactViewModel.swift in Sources */,
 				B05E958D21004F0F007420B5 /* ScannerController.swift in Sources */,
+				B06053412101C9CA0035EB5F /* Structs.swift in Sources */,
 				B05E956F21002F5B007420B5 /* contactsApp.xcdatamodeld in Sources */,
+				B060533F2101C38D0035EB5F /* EditViewModel.swift in Sources */,
 				B05E9589210042FA007420B5 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,6 +265,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -252,6 +273,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -302,6 +324,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -309,6 +332,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

@@ -42,7 +42,9 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row != 0 {
+        if indexPath.row == 0 {
+            self.performSegue(withIdentifier: "editProfileSeg", sender: indexPath.row)
+        } else {
             userIDToPass = contacts[indexPath.row - 1]
             self.performSegue(withIdentifier: "viewContactSeg", sender: indexPath.row)
         }
