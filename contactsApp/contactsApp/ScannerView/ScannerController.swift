@@ -19,4 +19,23 @@ class ScannerController: UIViewController {
         self.scanFrame.layer.borderWidth = 2
         self.scanFrame.layer.borderColor = UIColor.purple.cgColor
     }
+    
+//    func saveData() {
+//        print("Saving shit")
+//        
+//        let entity = NSEntityDescription.entity(forEntityName: "Contact", in: context)
+//        let newContact = NSManagedObject(entity: entity!, insertInto: context)
+//        
+//        if !haveUser {
+//            newContact.setValue(true, forKey: "isMyself")
+//        }
+//        
+//        newContact.setValue("Steven", forKey: "firstName")
+//        
+//        do {
+//            try context.save()
+//        } catch {
+//            print("Failed saving")
+//        }
+//    }
 }

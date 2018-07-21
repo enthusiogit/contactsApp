@@ -348,6 +348,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="r6I-wL-XAT"/>
                     <connections>
+                        <outlet property="tableView" destination="syj-Pc-OlG" id="OgN-rM-708"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="personalSeg" id="zIL-r4-zz5"/>
                         <segue destination="SYJ-wS-laY" kind="show" identifier="viewContactSeg" id="Vvg-uW-XjC"/>
                         <segue destination="fGa-WY-zq5" kind="show" identifier="editProfileSeg" id="spc-WJ-Ch6"/>
@@ -617,13 +618,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="864"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DoF-JA-RVl">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="DoF-JA-RVl">
                                 <rect key="frame" x="0.0" y="64" width="375" height="800"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5EE-Ub-3kh">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <subviews>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W5F-7E-D1B">
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W5F-7E-D1B">
                                                 <rect key="frame" x="137" y="15" width="100" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="AVh-FL-1tQ"/>
@@ -632,7 +633,7 @@
                                                 <state key="normal" image="NillPerson"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="40"/>
+                                                        <integer key="value" value="50"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
@@ -828,6 +829,7 @@
                         <outlet property="lastLabel" destination="ogq-8z-9Ew" id="SC6-5Q-vi3"/>
                         <outlet property="linkedinLabel" destination="dOd-YI-NOU" id="DWA-0y-gci"/>
                         <outlet property="phonelabel" destination="TGA-uW-0Xa" id="5el-9p-1y2"/>
+                        <outlet property="scrollView" destination="DoF-JA-RVl" id="bDx-zc-1BD"/>
                         <outlet property="snapchatLabel" destination="lEI-8e-zwE" id="LLi-iV-gkN"/>
                         <outlet property="twitterLabel" destination="oe8-jm-0MO" id="c8N-v2-9ba"/>
                     </connections>

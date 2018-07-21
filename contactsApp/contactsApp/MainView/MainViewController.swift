@@ -9,18 +9,28 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    let viewModel = MainViewModel()
     var userIDToPass: String?
     let contacts = ["Souvik", "Steven", "Alec", "Moyo", "Kiara"]
     let locations = ["San Francisco", "San Jose", "Los Angeles", "Sacramento", "Middle of Fucking Nowhere"]
 
+    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.reloadData = { [weak self] in self?.reloadData() }
+    }
+    
+    func reloadData() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return contacts.count + 1
+        return self.viewModel.users.count + 1
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
@@ -33,8 +43,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             let contact = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactCell
             
-            contact.name.text = contacts[indexPath.row - 1]
-            contact.location.text = locations[indexPath.row - 1]
+            contact.name.text = self.viewModel.users[indexPath.row - 1].firstName
+            contact.location.text = self.viewModel.users[indexPath.row - 1].job
             
             return contact
         }
