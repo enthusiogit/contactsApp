@@ -11,7 +11,13 @@ import Foundation
 struct ContactStruct {
     var firstName: String
     var lastName: String
-    var job: String
-    var email: String
-    var phoneNumber: String
+//    var job: String
+//    var email: String
+//    var phoneNumber: String
+    var info: [ContactValue]
+}
+
+struct ContactValue {
+    let platform: String
+    let value: String
 }
