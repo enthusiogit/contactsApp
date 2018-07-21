@@ -73,9 +73,21 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
         
         firstLabel.text = contact.firstName
         lastLabel.text = contact.lastName
-        jobLabel.text = contact.job
-        phonelabel.text = contact.phoneNumber
-        emailLabel.text = contact.email
+        for info in contact.info {
+            switch (info.platform) {
+            case "Job":
+                jobLabel.text = info.value
+            case "Phone Number":
+                phonelabel.text = info.value
+            case "Email":
+                emailLabel.text = info.value
+            default:
+                print("unknown platform")
+            }
+        }
+//        jobLabel.text = contact.info["Job"]
+//        phonelabel.text = contact.info["Phone Number"]
+//        emailLabel.text = contact.info["Email"]
         linkedinLabel.text = "@steven_worrall"
         twitterLabel.text = ""
         snapchatLabel.text = ""

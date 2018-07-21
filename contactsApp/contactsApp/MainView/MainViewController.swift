@@ -11,6 +11,7 @@ import UIKit
 class MainViewController: UIViewController {
     let viewModel = MainViewModel()
     var userIDToPass: String?
+    var userToPass: ContactStruct?
     let contacts = ["Souvik", "Steven", "Alec", "Moyo", "Kiara"]
     let locations = ["San Francisco", "San Jose", "Los Angeles", "Sacramento", "Middle of Fucking Nowhere"]
 
@@ -18,7 +19,9 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("main view controller")
         viewModel.reloadData = { [weak self] in self?.reloadData() }
+        viewModel.populateData()
     }
     
     func reloadData() {
@@ -44,7 +47,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             let contact = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactCell
             
             contact.name.text = self.viewModel.users[indexPath.row - 1].firstName
-            contact.location.text = self.viewModel.users[indexPath.row - 1].job
+            contact.location.text = self.viewModel.users[indexPath.row - 1].lastName
             
             return contact
         }
@@ -55,7 +58,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 0 {
             self.performSegue(withIdentifier: "editProfileSeg", sender: indexPath.row)
         } else {
-            userIDToPass = contacts[indexPath.row - 1]
+//            userIDToPass = contacts[indexPath.row - 1]
+            userToPass = viewModel.users[indexPath.row - 1]
             self.performSegue(withIdentifier: "viewContactSeg", sender: indexPath.row)
         }
     }
@@ -63,7 +67,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "viewContactSeg" {
             let viewController = segue.destination as! ContactController
-            viewController.userID = userIDToPass
+//            viewController.userID = userIDToPass
+            viewController.user = userToPass
         }
     }
 }

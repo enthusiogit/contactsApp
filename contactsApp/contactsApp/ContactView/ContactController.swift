@@ -10,11 +10,16 @@ import UIKit
 
 class ContactController: UIViewController {
     var userID: String?
-    let platforms = ["Phone Number", "Linkedin", "Twitter", "Medium", "Snapchat"]
-    let usernames = ["408-978-0789", "@shotcaller789", "@justabigballer", "@thewriter", "@bigboi36"]
+    var user: ContactStruct?
+    var platforms: [String] = []
+    var platformValues: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        for info in (user?.info)! {
+            platforms.append(info.platform)
+            platformValues.append(info.value)
+        }
     }
 }
 
@@ -27,14 +32,14 @@ extension ContactController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 0 {
             let expanded = tableView.dequeueReusableCell(withIdentifier: "contactExpandedCell", for: indexPath) as! ContactExpandedCell
             
-            expanded.name.text = "Steven Worrall"
+            expanded.name.text = (user?.firstName)! + " " + (user?.lastName)!
             
             return expanded
         } else {
             let contact = tableView.dequeueReusableCell(withIdentifier: "platformCell", for: indexPath) as! PlatformCell
             
             contact.platformName.text = platforms[indexPath.row - 1]
-            contact.platformUsername.text = usernames[indexPath.row - 1]
+            contact.platformUsername.text = platformValues[indexPath.row - 1]
             
             return contact
         }

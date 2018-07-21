@@ -21,11 +21,11 @@ class EditViewModel {
     
     init() {
         context = appDelegate.persistentContainer.viewContext
-        user = ContactStruct(firstName: "", lastName: "", job: "", email: "", phoneNumber: "")
+        user = ContactStruct(firstName: "", lastName: "", info: [])
     }
     
     func populateData() {
-        print("Populating shit")
+        print("Populating shit. edit view model")
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Contact")
         request.predicate = NSPredicate(format: "isMyself == %@", NSNumber(value: true))
@@ -38,21 +38,22 @@ class EditViewModel {
                     haveUser = true
                     currentUser = data
                     
-                    if data.value(forKey: "firstName") != nil {
-                        user.firstName = data.value(forKey: "firstName") as! String
+                    if let firstName = data.value(forKey: "firstName") {
+                        user.firstName = firstName as! String
                     }
-                    if data.value(forKey: "lastName") != nil {
-                        user.lastName = data.value(forKey: "lastName") as! String
+                    if let lastName = data.value(forKey: "firstName") {
+                        user.lastName = lastName as! String
                     }
-                    if data.value(forKey: "jobTitle") != nil {
-                        user.job = data.value(forKey: "jobTitle") as! String
+                    if let job = data.value(forKey: "jobTitle") {
+                        user.info.append(ContactValue(platform: "Job", value: job as! String))
                     }
-                    if data.value(forKey: "phoneNumber") != nil {
-                        user.email = data.value(forKey: "phoneNumber") as! String
+                    if let email = data.value(forKey: "email") {
+                        user.info.append(ContactValue(platform: "Email", value: email as! String))
                     }
-                    if data.value(forKey: "email") != nil {
-                        user.phoneNumber = data.value(forKey: "email") as! String
+                    if let phoneNumber = data.value(forKey: "phoneNumber") {
+                        user.info.append(ContactValue(platform: "Phone Number", value: phoneNumber as! String))
                     }
+                    print("user:", user)
                 }
             }
             populateFields!()

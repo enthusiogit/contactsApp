@@ -23,35 +23,38 @@ class MainViewModel {
     }
     
     func populateData() {
-        print("Populating shit")
+        print("Populating shit. main view model")
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Contact")
         request.returnsObjectsAsFaults = false
         do {
             let result = try context?.fetch(request)
             
-            var count = 0
             for data in result as! [NSManagedObject] {
                 haveUser = true
+                var user = ContactStruct(firstName: "", lastName: "", info: [])
                 
-                if data.value(forKey: "firstName") != nil {
-                    users[count].firstName = data.value(forKey: "firstName") as! String
+                if let firstName = data.value(forKey: "firstName") {
+                    user.firstName = firstName as! String
                 }
-                if data.value(forKey: "lastName") != nil {
-                    users[count].lastName = data.value(forKey: "lastName") as! String
+                if let lastName = data.value(forKey: "firstName") {
+                    user.lastName = lastName as! String
                 }
-                if data.value(forKey: "jobTitle") != nil {
-                    users[count].job = data.value(forKey: "jobTitle") as! String
+                if let job = data.value(forKey: "jobTitle") {
+                    user.info.append(ContactValue(platform: "Job", value: job as! String))
                 }
-                if data.value(forKey: "phoneNumber") != nil {
-                    users[count].email = data.value(forKey: "phoneNumber") as! String
+                if let email = data.value(forKey: "email") {
+                    user.info.append(ContactValue(platform: "Email", value: email as! String))
                 }
-                if data.value(forKey: "email") != nil {
-                    users[count].phoneNumber = data.value(forKey: "email") as! String
+                if let phoneNumber = data.value(forKey: "phoneNumber") {
+                    user.info.append(ContactValue(platform: "Phone Number", value: phoneNumber as! String))
                 }
-                count += 1
+                print("user:", user)
+                users.append(user)
             }
-            reloadData!()
+            if let reloadData = self.reloadData {
+                reloadData()
+            }
         } catch {
             print("Failed")
         }
