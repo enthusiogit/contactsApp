@@ -24,6 +24,8 @@
 		B060533C2101674D0035EB5F /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060533B2101674D0035EB5F /* EditController.swift */; };
 		B060533F2101C38D0035EB5F /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060533E2101C38D0035EB5F /* EditViewModel.swift */; };
 		B06053412101C9CA0035EB5F /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06053402101C9CA0035EB5F /* Structs.swift */; };
+		B06053432103B7220035EB5F /* GenerateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06053422103B7220035EB5F /* GenerateController.swift */; };
+		B06053462103BFED0035EB5F /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06053452103BFED0035EB5F /* ScannerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		B060533B2101674D0035EB5F /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditController.swift; sourceTree = "<group>"; };
 		B060533E2101C38D0035EB5F /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		B06053402101C9CA0035EB5F /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		B06053422103B7220035EB5F /* GenerateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateController.swift; sourceTree = "<group>"; };
+		B06053452103BFED0035EB5F /* ScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				B05E957B21002F87007420B5 /* AppManager */,
+				B06053442103B7260035EB5F /* GenerateView */,
 				B060533D210167530035EB5F /* EditView */,
 				B05E957C21002FB2007420B5 /* MainView */,
 				B05E958E21004F13007420B5 /* ScannerView */,
@@ -127,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				B05E958C21004F0F007420B5 /* ScannerController.swift */,
+				B06053452103BFED0035EB5F /* ScannerViewModel.swift */,
 			);
 			path = ScannerView;
 			sourceTree = "<group>";
@@ -138,6 +144,14 @@
 				B060533E2101C38D0035EB5F /* EditViewModel.swift */,
 			);
 			path = EditView;
+			sourceTree = "<group>";
+		};
+		B06053442103B7260035EB5F /* GenerateView */ = {
+			isa = PBXGroup;
+			children = (
+				B06053422103B7220035EB5F /* GenerateController.swift */,
+			);
+			path = GenerateView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +233,8 @@
 				B05E956921002F5B007420B5 /* MainViewController.swift in Sources */,
 				B05E958121004281007420B5 /* PersonalCell.swift in Sources */,
 				B05E956721002F5B007420B5 /* AppDelegate.swift in Sources */,
+				B06053462103BFED0035EB5F /* ScannerViewModel.swift in Sources */,
+				B06053432103B7220035EB5F /* GenerateController.swift in Sources */,
 				B05E957E21004245007420B5 /* ContactController.swift in Sources */,
 				B05E958B21004309007420B5 /* ContactViewModel.swift in Sources */,
 				B05E958D21004F0F007420B5 /* ScannerController.swift in Sources */,
