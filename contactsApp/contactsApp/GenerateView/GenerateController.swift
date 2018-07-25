@@ -10,8 +10,6 @@ import UIKit
 
 class GenerateController: UIViewController {
     let stng = "@steven_worrall, @steven"
-
-    @IBOutlet weak var QRView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +25,8 @@ class GenerateController: UIViewController {
         filter?.setValue(data, forKey: "inputMessage")
         
         let img = UIImage(ciImage: (filter?.outputImage)!)
-        QRView.image = img
+        
+        performSegue(withIdentifier: "updateQRImageSeg", sender: img)
     }
     
     func compileString() -> String {
@@ -40,6 +39,11 @@ class GenerateController: UIViewController {
         print(QRString)
         
         return QRString
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! QRViewController
+        vc.imgURL = sender as? UIImage
     }
     
     

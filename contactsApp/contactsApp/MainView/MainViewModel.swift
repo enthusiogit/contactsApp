@@ -34,7 +34,7 @@ class MainViewModel {
             
             for data in result as! [NSManagedObject] {
                 haveUser = true
-                var user = ContactStruct(firstName: "", lastName: "", info: [])
+                let user = ContactStruct(firstName: "", lastName: "", info: [])
                 
                 if let firstName = data.value(forKey: "firstName") {
                     user.firstName = firstName as! String

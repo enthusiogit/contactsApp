@@ -27,6 +27,7 @@
 		B06053432103B7220035EB5F /* GenerateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06053422103B7220035EB5F /* GenerateController.swift */; };
 		B06053462103BFED0035EB5F /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06053452103BFED0035EB5F /* ScannerViewModel.swift */; };
 		B060534921068F0A0035EB5F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060534821068F0A0035EB5F /* Utilities.swift */; };
+		B0605352210804980035EB5F /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0605351210804980035EB5F /* QRViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		B06053422103B7220035EB5F /* GenerateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateController.swift; sourceTree = "<group>"; };
 		B06053452103BFED0035EB5F /* ScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
 		B060534821068F0A0035EB5F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		B0605351210804980035EB5F /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				B05E957B21002F87007420B5 /* AppManager */,
+				B0605350210804840035EB5F /* QRView */,
 				B06053442103B7260035EB5F /* GenerateView */,
 				B060533D210167530035EB5F /* EditView */,
 				B05E957C21002FB2007420B5 /* MainView */,
@@ -165,6 +168,14 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		B0605350210804840035EB5F /* QRView */ = {
+			isa = PBXGroup;
+			children = (
+				B0605351210804980035EB5F /* QRViewController.swift */,
+			);
+			path = QRView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -242,6 +253,7 @@
 				B05E95832100428E007420B5 /* ContactCell.swift in Sources */,
 				B05E9587210042CC007420B5 /* PlatformCell.swift in Sources */,
 				B05E956921002F5B007420B5 /* MainViewController.swift in Sources */,
+				B0605352210804980035EB5F /* QRViewController.swift in Sources */,
 				B05E958121004281007420B5 /* PersonalCell.swift in Sources */,
 				B05E956721002F5B007420B5 /* AppDelegate.swift in Sources */,
 				B06053462103BFED0035EB5F /* ScannerViewModel.swift in Sources */,

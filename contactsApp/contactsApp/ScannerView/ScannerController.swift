@@ -25,7 +25,7 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
         setUpCameraView()
         
         self.scanFrame.layer.borderWidth = 2
-        self.scanFrame.layer.borderColor = UIColor.purple.cgColor
+        self.scanFrame.layer.borderColor = UIColor.green.cgColor
     }
     
     func setUpCameraView() {
