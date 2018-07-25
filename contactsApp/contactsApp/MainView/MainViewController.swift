@@ -12,10 +12,11 @@ class MainViewController: UIViewController {
     let viewModel = MainViewModel()
     var userIDToPass: String?
     var userToPass: ContactStruct?
-    let contacts = ["Souvik", "Steven", "Alec", "Moyo", "Kiara"]
+    let contacts = ["Shouvik", "Steven", "Alec", "Moyo", "Kiara"]
     let locations = ["San Francisco", "San Jose", "Los Angeles", "Sacramento", "Middle of Fucking Nowhere"]
 
     @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,7 +41,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 0 {
             let personal = tableView.dequeueReusableCell(withIdentifier: "personalCell", for: indexPath) as! PersonalCell
             
-            personal.name.text = "Steven Worrall"
+            personal.name.text = viewModel.currUser.firstName + " " + viewModel.currUser.lastName
             
             return personal
         } else {
