@@ -15,7 +15,7 @@ class GenerateController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        user = UtilitiesManager.shared.getUser()!
+        user = UtilitiesManager.shared.getUser()
     }
     
     @IBAction func generateTouch(_ sender: Any) {
