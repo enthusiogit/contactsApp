@@ -28,6 +28,7 @@
 		B06053462103BFED0035EB5F /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06053452103BFED0035EB5F /* ScannerViewModel.swift */; };
 		B060534921068F0A0035EB5F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060534821068F0A0035EB5F /* Utilities.swift */; };
 		B0605352210804980035EB5F /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0605351210804980035EB5F /* QRViewController.swift */; };
+		B060535421081DD80035EB5F /* platformsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060535321081DD80035EB5F /* platformsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		B06053452103BFED0035EB5F /* ScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
 		B060534821068F0A0035EB5F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B0605351210804980035EB5F /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
+		B060535321081DD80035EB5F /* platformsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = platformsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				B06053422103B7220035EB5F /* GenerateController.swift */,
+				B060535321081DD80035EB5F /* platformsCell.swift */,
 			);
 			path = GenerateView;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B060535421081DD80035EB5F /* platformsCell.swift in Sources */,
 				B05E9585210042A3007420B5 /* ContactExpandedCell.swift in Sources */,
 				B060533C2101674D0035EB5F /* EditController.swift in Sources */,
 				B05E95832100428E007420B5 /* ContactCell.swift in Sources */,

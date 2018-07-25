@@ -34,6 +34,8 @@ class ScannerViewModel {
         
         do {
             try context.save()
+            print("saved")
+            self.displaySuccess!()
         } catch {
             print("Failed saving")
             self.displayError!()
