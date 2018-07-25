@@ -19,7 +19,14 @@ class EditViewModel {
     
     init() {
         context = appDelegate.persistentContainer.viewContext
-        user = UtilitiesManager.shared.getUser()!
+        if let cachedUser = UtilitiesManager.shared.getUser() {
+            user = cachedUser
+        } else if let coreUser = UtilitiesManager.shared.findUser() {
+            user = coreUser
+        } else {
+            print("no profile started")
+            user = ContactStruct(firstName: "", lastName: "", info: [])
+        }
     }
     
     func saveData(_ image: UIImage, _ firstName: String, _ lastName: String, _ jobLabel: String, _ phonelabel: String, _ emailLabel: String, _ linkedinLabel: String, _ twitterLabel: String, _ snapchatLabel: String) {
@@ -43,6 +50,8 @@ class EditViewModel {
                 print("Failed saving")
                 return
             }
+            let user = UtilitiesManager.shared.findUser()
+            UtilitiesManager.shared.cacheUser(user: user!)
         } else {
             let entity = NSEntityDescription.entity(forEntityName: "Contact", in: context)
             currentUser = NSManagedObject(entity: entity!, insertInto: context)

@@ -22,6 +22,16 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var twitterLabel: UITextField!
     @IBOutlet weak var snapchatLabel: UITextField!
     
+    
+    
+    
+    //FIXME reload the get current user call after adding in your own data
+    
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
