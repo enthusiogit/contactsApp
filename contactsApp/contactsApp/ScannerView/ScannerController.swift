@@ -12,6 +12,7 @@ import AVFoundation
 class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     let viewModel = ScannerViewModel()
     var video = AVCaptureVideoPreviewLayer()
+    let session = AVCaptureSession()
 
     @IBOutlet weak var scannerView: UIView!
     @IBOutlet weak var scanFrame: UIView!
@@ -23,13 +24,13 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
         viewModel.displayError = { [weak self] in self?.displayError() }
         
         setUpCameraView()
+        self.session.startRunning()
         
         self.scanFrame.layer.borderWidth = 2
         self.scanFrame.layer.borderColor = UIColor.green.cgColor
     }
     
     func setUpCameraView() {
-        let session = AVCaptureSession()
         let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         
         do {
@@ -56,7 +57,8 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
         if metadataObjects != nil && metadataObjects.count != 0 {
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
                 if object.type == AVMetadataObject.ObjectType.qr {
-                    viewModel.saveData(qrString: object.stringValue!)
+                    self.session.stopRunning()
+                    viewModel.saveData(qrString: object.stringValue!)    
                 }
             }
         }

@@ -12,8 +12,6 @@ class MainViewController: UIViewController {
     let viewModel = MainViewModel()
     var userIDToPass: String?
     var userToPass: ContactStruct?
-    let contacts = ["Shouvik", "Steven", "Alec", "Moyo", "Kiara"]
-    let locations = ["San Francisco", "San Jose", "Los Angeles", "Sacramento", "Middle of Fucking Nowhere"]
 
     @IBOutlet weak var tableView: UITableView!
     

@@ -11,6 +11,7 @@ import UIKit
 class GenerateController: UIViewController {
     var user: ContactStruct = ContactStruct(firstName: "", lastName: "", info: [])
     var selected = ["Job": true, "Phone Number": true, "Email": true, "LinkedIn": true, "Twitter": true]
+    let images = [#imageLiteral(resourceName: "phone"), #imageLiteral(resourceName: "Message"), #imageLiteral(resourceName: "video"), #imageLiteral(resourceName: "Email"), #imageLiteral(resourceName: "Share")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,4 +62,37 @@ class GenerateController: UIViewController {
     }
     
     
+}
+
+extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: "platformIdent", for: indexPath) as! platformsCell
+        
+        itemCell.image.image = images[indexPath.row]
+        
+        return itemCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 80, height: 80)
+    }
+    
+//    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        print("You selected jam cell #\(indexPath.row)!")
+//
+//        // Get Jam ID
+//        jamIDForSegue = viewModel.jam(at: indexPath.row).ID
+//        self.performSegue(withIdentifier: "mainToWatchSeg", sender: indexPath.row)
+//    }
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "mainToWatchSeg" {
+//            let viewController = segue.destination as! WatchController
+//            viewController.jamID = jamIDForSegue
+//        }
+//    }
 }

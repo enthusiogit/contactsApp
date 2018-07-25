@@ -42,6 +42,7 @@ class ScannerViewModel {
                 print("failed to save new contact")
             }
             
+            self.displaySuccess!()
         } catch {
             print("error parsing json. err:", error)
             return

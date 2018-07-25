@@ -21,7 +21,14 @@ class MainViewModel {
     
     init() {
         context = appDelegate.persistentContainer.viewContext
-        currUser = UtilitiesManager.shared.getUser()!
+        if let cachedUser = UtilitiesManager.shared.getUser() {
+            currUser = cachedUser
+        } else if let coreUser = UtilitiesManager.shared.findUser() {
+            currUser = coreUser
+        } else {
+            print("no profile started")
+            currUser = ContactStruct(firstName: "", lastName: "", info: [])
+        }
     }
     
     func populateData() {
@@ -30,7 +37,7 @@ class MainViewModel {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Contact")
         request.returnsObjectsAsFaults = false
         do {
-            let result = try context?.fetch(request)
+            let result = try self.context?.fetch(request)
             
             for data in result as! [NSManagedObject] {
                 haveUser = true
@@ -39,7 +46,7 @@ class MainViewModel {
                 if let firstName = data.value(forKey: "firstName") {
                     user.firstName = firstName as! String
                 }
-                if let lastName = data.value(forKey: "firstName") {
+                if let lastName = data.value(forKey: "lastName") {
                     user.lastName = lastName as! String
                 }
                 if let job = data.value(forKey: "jobTitle") {
@@ -64,6 +71,7 @@ class MainViewModel {
                 print("user:", user)
                 users.append(user)
             }
+            
             if let reloadData = self.reloadData {
                 reloadData()
             }

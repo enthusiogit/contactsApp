@@ -26,14 +26,15 @@ class UtilitiesManager {
         context = appDelegate.persistentContainer.viewContext
         recoginizer = "contactsApp"
         deviceID = UIDevice.current.identifierForVendor!.uuidString
+        
         if getUser() == nil {
-            findUser()
+            _ = findUser()
         } else {
             haveUser = true
         }
     }
     
-    func findUser() {
+    func findUser() -> ContactStruct? {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Contact")
         request.predicate = NSPredicate(format: "isMyself == %@", NSNumber(value: true))
         request.returnsObjectsAsFaults = false
@@ -73,12 +74,14 @@ class UtilitiesManager {
                     print("user:", user)
                     
                     cacheUser(user: user)
-                    
+                    return user
                 }
             }
         } catch {
             print("Failed")
+            return nil
         }
+        return nil
     }
     
     func cacheUser(user: ContactStruct) {
