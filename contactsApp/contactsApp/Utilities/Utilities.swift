@@ -13,17 +13,19 @@ import CoreData
 class UtilitiesManager {
     static let shared = UtilitiesManager()
     let userCache = NSCache<NSString, ContactStruct>()
-    
+   
+    let deviceID: String
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let context: NSManagedObjectContext
     var haveUser: Bool = false
-    var currentUser: NSManagedObject?
+    var currentUserObject: NSManagedObject?
     
     let recoginizer: String
     
     init() {
         context = appDelegate.persistentContainer.viewContext
         recoginizer = "contactsApp"
+        deviceID = UIDevice.current.identifierForVendor!.uuidString
         if getUser() == nil {
             findUser()
         } else {
@@ -41,7 +43,7 @@ class UtilitiesManager {
             if result.count == 1 {
                 for data in result as! [NSManagedObject] {
                     haveUser = true
-                    currentUser = data
+                    currentUserObject = data
                     let user = ContactStruct(firstName: "", lastName: "", info: [])
                     
                     if let firstName = data.value(forKey: "firstName") {
@@ -88,5 +90,49 @@ class UtilitiesManager {
             return user
         }
         return nil
+    }
+    
+    func saveContact(myself: Bool, contact: ContactsApp) -> Bool {
+        let entity = NSEntityDescription.entity(forEntityName: "Contact", in: context)
+        var currentUser: NSManagedObject
+        if myself, currentUserObject != nil {
+            currentUser = currentUserObject!
+        } else {
+            currentUser = NSManagedObject(entity: entity!, insertInto: context)
+        }
+        
+        currentUser.setValue(contact.deviceID, forKey: "deviceID")
+        currentUser.setValue(myself, forKey: "isMyself")
+        currentUser.setValue(contact.contactsApp.firstName, forKey: "firstName")
+        currentUser.setValue(contact.contactsApp.lastName, forKey: "lastName")
+        for val in contact.contactsApp.info {
+            switch (val.platform) {
+            case "Job":
+                 currentUser.setValue(val.value, forKey: "jobTitle")
+            case "Phone Number":
+                currentUser.setValue(val.value, forKey: "phoneNumber")
+            case "Email":
+                currentUser.setValue(val.value, forKey: "email")
+            case "LinkedIn":
+                currentUser.setValue(val.value, forKey: "linkedin")
+            case "Twitter":
+                currentUser.setValue(val.value, forKey: "twitter")
+            case "Snapchat":
+                currentUser.setValue(val.value, forKey: "snapchat")
+            default:
+                print("unknown platform")
+            }
+        }
+        
+        do {
+            try context.save()
+            if myself {
+                cacheUser(user: contact.contactsApp)
+            }
+            return true
+        } catch {
+            print("Failed saving")
+            return false
+        }
     }
 }

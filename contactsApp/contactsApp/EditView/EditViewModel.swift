@@ -15,7 +15,6 @@ class EditViewModel {
     let context: NSManagedObjectContext
     var user: ContactStruct
     var currentUser: NSManagedObject?
-    let deviceID = UIDevice.current.identifierForVendor!.uuidString
     
     init() {
         context = appDelegate.persistentContainer.viewContext
@@ -25,46 +24,6 @@ class EditViewModel {
     func saveData(_ image: UIImage, _ firstName: String, _ lastName: String, _ jobLabel: String, _ phonelabel: String, _ emailLabel: String, _ linkedinLabel: String, _ twitterLabel: String, _ snapchatLabel: String) {
         print("Saving shit")
         
-        if UtilitiesManager.shared.haveUser {
-            print("last: ", lastName)
-            currentUser?.setValue(true, forKey: "isMyself")
-            currentUser?.setValue(firstName, forKey: "firstName")
-            currentUser?.setValue(lastName, forKey: "lastName")
-            currentUser?.setValue(jobLabel, forKey: "jobTitle")
-            currentUser?.setValue(phonelabel, forKey: "phoneNumber")
-            currentUser?.setValue(emailLabel, forKey: "email")
-            currentUser?.setValue(linkedinLabel, forKey: "linkedin")
-            currentUser?.setValue(twitterLabel, forKey: "twitter")
-            currentUser?.setValue(snapchatLabel, forKey: "snapchat")
-            
-            do {
-                try context.save()
-            } catch {
-                print("Failed saving")
-                return
-            }
-        } else {
-            let entity = NSEntityDescription.entity(forEntityName: "Contact", in: context)
-            currentUser = NSManagedObject(entity: entity!, insertInto: context)
-            
-            currentUser?.setValue(deviceID, forKey: "deviceID")
-            currentUser?.setValue(true, forKey: "isMyself")
-            currentUser?.setValue(firstName, forKey: "firstName")
-            currentUser?.setValue(lastName, forKey: "lastName")
-            currentUser?.setValue(jobLabel, forKey: "jobTitle")
-            currentUser?.setValue(phonelabel, forKey: "phoneNumber")
-            currentUser?.setValue(emailLabel, forKey: "email")
-            currentUser?.setValue(linkedinLabel, forKey: "linkedin")
-            currentUser?.setValue(twitterLabel, forKey: "twitter")
-            currentUser?.setValue(snapchatLabel, forKey: "snapchat")
-
-            do {
-                try context.save()
-            } catch {
-                print("Failed saving")
-                return
-            }
-        }
         var info: [ContactValue] = []
         if jobLabel != "" {
             info.append(ContactValue(platform: "Job", value: jobLabel))
@@ -84,9 +43,14 @@ class EditViewModel {
         if snapchatLabel != "" {
             info.append(ContactValue(platform: "Snapchat", value: snapchatLabel))
         }
-        
+
         let user = ContactStruct(firstName: firstName, lastName: lastName, info: info)
-        UtilitiesManager.shared.cacheUser(user: user)
+        let contact = ContactsApp(contactsApp: user, deviceID: UtilitiesManager.shared.deviceID)
+        if UtilitiesManager.shared.saveContact(myself: true, contact: contact) {
+            print("successfully saved user info")
+        } else {
+            print("failed to save user info")
+        }
     }
     
 }

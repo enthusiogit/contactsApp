@@ -8,7 +8,12 @@
 
 import Foundation
 
-class ContactStruct {
+struct ContactsApp: Decodable {
+    let contactsApp: ContactStruct
+    let deviceID: String
+}
+
+class ContactStruct: Decodable {
     var firstName: String
     var lastName: String
     var info: [ContactValue]
@@ -20,7 +25,7 @@ class ContactStruct {
     }
 }
 
-struct ContactValue {
+struct ContactValue: Decodable {
     let platform: String
     let value: String
 }
