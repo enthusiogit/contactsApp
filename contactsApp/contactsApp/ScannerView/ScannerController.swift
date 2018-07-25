@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 
 class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+    let viewModel = ScannerViewModel()
     var video = AVCaptureVideoPreviewLayer()
 
     @IBOutlet weak var scannerView: UIView!
@@ -17,6 +18,9 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.displaySuccess = { [weak self] in self?.displaySuccess() }
+        viewModel.displayError = { [weak self] in self?.displayError() }
         
         setUpCameraView()
         
@@ -52,13 +56,23 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
         if metadataObjects != nil && metadataObjects.count != 0 {
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
                 if object.type == AVMetadataObject.ObjectType.qr {
-                    let alert = UIAlertController(title: "Your code is:", message: object.stringValue, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
-                    alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in
-                        UIPasteboard.general.string = object.stringValue
-                    }))
-                    present(alert, animated: true, completion: nil)
+                    print(object.stringValue!)
+                    viewModel.saveData(qrString: object.stringValue!)
                 }
             }
-        }    }
+        }
+    }
+    
+    func displaySuccess() {
+        let alert = UIAlertController(title: "Success", message: "Saved user to your contacts!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func displayError() {
+        let alert = UIAlertController(title: "Error", message: "Error reading and saving QR code.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
 }

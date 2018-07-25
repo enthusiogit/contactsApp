@@ -26,6 +26,7 @@
 		B06053412101C9CA0035EB5F /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06053402101C9CA0035EB5F /* Structs.swift */; };
 		B06053432103B7220035EB5F /* GenerateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06053422103B7220035EB5F /* GenerateController.swift */; };
 		B06053462103BFED0035EB5F /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06053452103BFED0035EB5F /* ScannerViewModel.swift */; };
+		B060534921068F0A0035EB5F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060534821068F0A0035EB5F /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		B06053402101C9CA0035EB5F /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		B06053422103B7220035EB5F /* GenerateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateController.swift; sourceTree = "<group>"; };
 		B06053452103BFED0035EB5F /* ScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
+		B060534821068F0A0035EB5F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,11 +90,11 @@
 				B05E957C21002FB2007420B5 /* MainView */,
 				B05E958E21004F13007420B5 /* ScannerView */,
 				B05E957F2100424B007420B5 /* ContactView */,
+				B060534721068EDD0035EB5F /* Utilities */,
 				B05E956A21002F5B007420B5 /* Main.storyboard */,
 				B05E957221002F5B007420B5 /* LaunchScreen.storyboard */,
 				B05E957521002F5B007420B5 /* Info.plist */,
 				B05E956D21002F5B007420B5 /* contactsApp.xcdatamodeld */,
-				B06053402101C9CA0035EB5F /* Structs.swift */,
 			);
 			path = contactsApp;
 			sourceTree = "<group>";
@@ -152,6 +154,15 @@
 				B06053422103B7220035EB5F /* GenerateController.swift */,
 			);
 			path = GenerateView;
+			sourceTree = "<group>";
+		};
+		B060534721068EDD0035EB5F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B06053402101C9CA0035EB5F /* Structs.swift */,
+				B060534821068F0A0035EB5F /* Utilities.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +247,7 @@
 				B06053462103BFED0035EB5F /* ScannerViewModel.swift in Sources */,
 				B06053432103B7220035EB5F /* GenerateController.swift in Sources */,
 				B05E957E21004245007420B5 /* ContactController.swift in Sources */,
+				B060534921068F0A0035EB5F /* Utilities.swift in Sources */,
 				B05E958B21004309007420B5 /* ContactViewModel.swift in Sources */,
 				B05E958D21004F0F007420B5 /* ScannerController.swift in Sources */,
 				B06053412101C9CA0035EB5F /* Structs.swift in Sources */,
@@ -383,7 +395,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = CZSL76K4WK;
 				INFOPLIST_FILE = contactsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Enthusio.contactsApp;
@@ -398,7 +410,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = CZSL76K4WK;
 				INFOPLIST_FILE = contactsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Enthusio.contactsApp;
