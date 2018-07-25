@@ -22,12 +22,24 @@ class GenerateController: UIViewController {
         //FIXME chang sharpness of image
         // https://stackoverflow.com/questions/22374971/ios-7-core-image-qr-code-generation-too-blur
         
-        let data = stng.data(using: .ascii, allowLossyConversion: false)
+        let data = compileString().data(using: .ascii, allowLossyConversion: false)
         let filter = CIFilter(name: "CIQRCodeGenerator")
         filter?.setValue(data, forKey: "inputMessage")
         
         let img = UIImage(ciImage: (filter?.outputImage)!)
         QRView.image = img
+    }
+    
+    func compileString() -> String {
+        var QRString = UtilitiesManager.shared.recoginizer
+        
+        QRString += ", "
+        QRString += "firstName: "
+        QRString += "Steven, "
+        
+        print(QRString)
+        
+        return QRString
     }
     
     

@@ -16,6 +16,7 @@ class EditViewModel {
     var user: ContactStruct
     var haveUser: Bool = false
     var currentUser: NSManagedObject?
+    let deviceID = UIDevice.current.identifierForVendor!.uuidString
     
     var populateFields: (()-> Void)?
     
@@ -83,6 +84,7 @@ class EditViewModel {
             let entity = NSEntityDescription.entity(forEntityName: "Contact", in: context)
             currentUser = NSManagedObject(entity: entity!, insertInto: context)
             
+            currentUser?.setValue(deviceID, forKey: "deviceID")
             currentUser?.setValue(true, forKey: "isMyself")
             currentUser?.setValue(firstLabel, forKey: "firstName")
             currentUser?.setValue(lastLabel, forKey: "lastName")
