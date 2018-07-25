@@ -15,14 +15,7 @@ class GenerateController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let cachedUser = UtilitiesManager.shared.getUser() {
-            user = cachedUser
-        } else if let coreUser = UtilitiesManager.shared.findUser() {
-            user = coreUser
-        } else {
-            print("no profile started")
-            user = ContactStruct(firstName: "", lastName: "", info: [])
-        }
+        user = UtilitiesManager.shared.getUser()
     }
     
     @IBAction func generateTouch(_ sender: Any) {
