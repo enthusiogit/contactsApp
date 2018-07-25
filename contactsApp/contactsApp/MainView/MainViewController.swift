@@ -17,10 +17,14 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        reloadData()
         print("main view controller")
-        viewModel.reloadData = { [weak self] in self?.reloadData() }
-        viewModel.populateData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("view will appear")
+        viewModel.resetUser()
+        reloadData()
     }
     
     func reloadData() {
@@ -39,7 +43,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 0 {
             let personal = tableView.dequeueReusableCell(withIdentifier: "personalCell", for: indexPath) as! PersonalCell
             
-            personal.name.text = viewModel.currUser.firstName + " " + viewModel.currUser.lastName
+            personal.name.text = (viewModel.currUser?.firstName)! + " " + (viewModel.currUser?.lastName)!
             
             return personal
         } else {

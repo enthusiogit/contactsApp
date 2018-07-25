@@ -88,11 +88,26 @@ class UtilitiesManager {
         userCache.setObject(user, forKey: "userInfo" as NSString)
     }
     
-    func getUser() -> ContactStruct? {
+    func getCachedUser() -> ContactStruct? {
         if let user = userCache.object(forKey: "userInfo" as NSString) {
             return user
         }
         return nil
+    }
+    
+    func getUser() -> ContactStruct {
+        var currUser: ContactStruct
+        if let cachedUser = getCachedUser() {
+            print("getting user from cache")
+            currUser = cachedUser
+        } else if let coreUser = findUser() {
+            print("getting user from core data")
+            currUser = coreUser
+        } else {
+            print("no profile started")
+            currUser = ContactStruct(firstName: "", lastName: "", info: [])
+        }
+        return currUser
     }
     
     func saveContact(myself: Bool, contact: ContactsApp) -> Bool {
@@ -100,6 +115,7 @@ class UtilitiesManager {
         var currentUser: NSManagedObject
         if myself, currentUserObject != nil {
             currentUser = currentUserObject!
+            print("myself and already have profile saved")
         } else {
             currentUser = NSManagedObject(entity: entity!, insertInto: context)
         }
@@ -130,6 +146,7 @@ class UtilitiesManager {
         do {
             try context.save()
             if myself {
+                print("caching user")
                 cacheUser(user: contact.contactsApp)
             }
             return true

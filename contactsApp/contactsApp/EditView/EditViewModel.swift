@@ -18,14 +18,15 @@ class EditViewModel {
     
     init() {
         context = appDelegate.persistentContainer.viewContext
-        if let cachedUser = UtilitiesManager.shared.getUser() {
-            user = cachedUser
-        } else if let coreUser = UtilitiesManager.shared.findUser() {
-            user = coreUser
-        } else {
-            print("no profile started")
-            user = ContactStruct(firstName: "", lastName: "", info: [])
-        }
+        user = UtilitiesManager.shared.getUser()
+//        if let cachedUser = UtilitiesManager.shared.getUser() {
+//            user = cachedUser
+//        } else if let coreUser = UtilitiesManager.shared.findUser() {
+//            user = coreUser
+//        } else {
+//            print("no profile started")
+//            user = ContactStruct(firstName: "", lastName: "", info: [])
+//        }
     }
     
     func saveData(_ image: UIImage, _ firstName: String, _ lastName: String, _ jobLabel: String, _ phonelabel: String, _ emailLabel: String, _ linkedinLabel: String, _ twitterLabel: String, _ snapchatLabel: String) {
