@@ -28,9 +28,7 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(noti:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(noti:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
-        viewModel.populateFields = { [weak self] in self?.populateFields() }
-        
-        viewModel.populateData()
+        populateFields()
     }
     
     deinit {
@@ -73,6 +71,13 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
         
         firstLabel.text = contact.firstName
         lastLabel.text = contact.lastName
+        jobLabel.text = ""
+        phonelabel.text = ""
+        emailLabel.text = ""
+        linkedinLabel.text = ""
+        twitterLabel.text = ""
+        snapchatLabel.text = ""
+        
         for info in contact.info {
             switch (info.platform) {
             case "Job":
@@ -81,17 +86,16 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
                 phonelabel.text = info.value
             case "Email":
                 emailLabel.text = info.value
+            case "LinkedIn":
+                linkedinLabel.text = info.value
+            case "Twitter":
+                twitterLabel.text = info.value
+            case "Snapchat":
+                snapchatLabel.text = info.value
             default:
                 print("unknown platform")
             }
         }
-//        jobLabel.text = contact.info["Job"]
-//        phonelabel.text = contact.info["Phone Number"]
-//        emailLabel.text = contact.info["Email"]
-        linkedinLabel.text = "@steven_worrall"
-        twitterLabel.text = ""
-        snapchatLabel.text = ""
-        
     }
     
     @objc func keyboardWillHide(noti: Notification) {

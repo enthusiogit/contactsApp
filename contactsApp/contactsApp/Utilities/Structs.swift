@@ -8,13 +8,16 @@
 
 import Foundation
 
-struct ContactStruct {
+class ContactStruct {
     var firstName: String
     var lastName: String
-//    var job: String
-//    var email: String
-//    var phoneNumber: String
     var info: [ContactValue]
+    
+    init(firstName: String, lastName: String, info: [ContactValue]) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.info = info
+    }
 }
 
 struct ContactValue {

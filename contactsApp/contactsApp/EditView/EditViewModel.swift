@@ -14,71 +14,34 @@ class EditViewModel {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let context: NSManagedObjectContext
     var user: ContactStruct
-    var haveUser: Bool = false
     var currentUser: NSManagedObject?
     let deviceID = UIDevice.current.identifierForVendor!.uuidString
     
-    var populateFields: (()-> Void)?
-    
     init() {
         context = appDelegate.persistentContainer.viewContext
-        user = ContactStruct(firstName: "", lastName: "", info: [])
+        user = UtilitiesManager.shared.getUser()!
     }
     
-    func populateData() {
-        print("Populating shit. edit view model")
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Contact")
-        request.predicate = NSPredicate(format: "isMyself == %@", NSNumber(value: true))
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context.fetch(request)
-            
-            if result.count == 1 {
-                for data in result as! [NSManagedObject] {
-                    haveUser = true
-                    currentUser = data
-                    
-                    if let firstName = data.value(forKey: "firstName") {
-                        user.firstName = firstName as! String
-                    }
-                    if let lastName = data.value(forKey: "firstName") {
-                        user.lastName = lastName as! String
-                    }
-                    if let job = data.value(forKey: "jobTitle") {
-                        user.info.append(ContactValue(platform: "Job", value: job as! String))
-                    }
-                    if let email = data.value(forKey: "email") {
-                        user.info.append(ContactValue(platform: "Email", value: email as! String))
-                    }
-                    if let phoneNumber = data.value(forKey: "phoneNumber") {
-                        user.info.append(ContactValue(platform: "Phone Number", value: phoneNumber as! String))
-                    }
-                    print("user:", user)
-                }
-            }
-            populateFields!()
-        } catch {
-            print("Failed")
-        }
-    }
-    
-    func saveData(_ image: UIImage, _ firstLabel: String, _ lastLabel: String, _ jobLabel: String, _ phonelabel: String, _ emailLabel: String, _ linkedinLabel: String, _ twitterLabel: String, _ snapchatLabel: String) {
+    func saveData(_ image: UIImage, _ firstName: String, _ lastName: String, _ jobLabel: String, _ phonelabel: String, _ emailLabel: String, _ linkedinLabel: String, _ twitterLabel: String, _ snapchatLabel: String) {
         print("Saving shit")
         
-        if haveUser {
-            print("last: ", lastLabel)
+        if UtilitiesManager.shared.haveUser {
+            print("last: ", lastName)
             currentUser?.setValue(true, forKey: "isMyself")
-            currentUser?.setValue(firstLabel, forKey: "firstName")
-            currentUser?.setValue(lastLabel, forKey: "lastName")
+            currentUser?.setValue(firstName, forKey: "firstName")
+            currentUser?.setValue(lastName, forKey: "lastName")
             currentUser?.setValue(jobLabel, forKey: "jobTitle")
             currentUser?.setValue(phonelabel, forKey: "phoneNumber")
             currentUser?.setValue(emailLabel, forKey: "email")
+            currentUser?.setValue(linkedinLabel, forKey: "linkedin")
+            currentUser?.setValue(twitterLabel, forKey: "twitter")
+            currentUser?.setValue(snapchatLabel, forKey: "snapchat")
             
             do {
                 try context.save()
             } catch {
                 print("Failed saving")
+                return
             }
         } else {
             let entity = NSEntityDescription.entity(forEntityName: "Contact", in: context)
@@ -86,18 +49,44 @@ class EditViewModel {
             
             currentUser?.setValue(deviceID, forKey: "deviceID")
             currentUser?.setValue(true, forKey: "isMyself")
-            currentUser?.setValue(firstLabel, forKey: "firstName")
-            currentUser?.setValue(lastLabel, forKey: "lastName")
+            currentUser?.setValue(firstName, forKey: "firstName")
+            currentUser?.setValue(lastName, forKey: "lastName")
             currentUser?.setValue(jobLabel, forKey: "jobTitle")
             currentUser?.setValue(phonelabel, forKey: "phoneNumber")
             currentUser?.setValue(emailLabel, forKey: "email")
+            currentUser?.setValue(linkedinLabel, forKey: "linkedin")
+            currentUser?.setValue(twitterLabel, forKey: "twitter")
+            currentUser?.setValue(snapchatLabel, forKey: "snapchat")
 
             do {
                 try context.save()
             } catch {
                 print("Failed saving")
+                return
             }
         }
+        var info: [ContactValue] = []
+        if jobLabel != "" {
+            info.append(ContactValue(platform: "Job", value: jobLabel))
+        }
+        if phonelabel != "" {
+            info.append(ContactValue(platform: "Phone Number", value: phonelabel))
+        }
+        if emailLabel != "" {
+            info.append(ContactValue(platform: "Email", value: emailLabel))
+        }
+        if linkedinLabel != "" {
+            info.append(ContactValue(platform: "LinkedIn", value: linkedinLabel))
+        }
+        if twitterLabel != "" {
+            info.append(ContactValue(platform: "Twitter", value: twitterLabel))
+        }
+        if snapchatLabel != "" {
+            info.append(ContactValue(platform: "Snapchat", value: snapchatLabel))
+        }
+        
+        let user = ContactStruct(firstName: firstName, lastName: lastName, info: info)
+        UtilitiesManager.shared.cacheUser(user: user)
     }
     
 }
