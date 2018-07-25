@@ -15,11 +15,13 @@ class MainViewModel {
     let context: NSManagedObjectContext?
     var users: [ContactStruct] = []
     var haveUser: Bool = false
+    let currUser: ContactStruct
     
     var reloadData: (()-> Void)?
     
     init() {
         context = appDelegate.persistentContainer.viewContext
+        currUser = UtilitiesManager.shared.getUser()!
     }
     
     func populateData() {
@@ -43,12 +45,22 @@ class MainViewModel {
                 if let job = data.value(forKey: "jobTitle") {
                     user.info.append(ContactValue(platform: "Job", value: job as! String))
                 }
-                if let email = data.value(forKey: "email") {
-                    user.info.append(ContactValue(platform: "Email", value: email as! String))
-                }
                 if let phoneNumber = data.value(forKey: "phoneNumber") {
                     user.info.append(ContactValue(platform: "Phone Number", value: phoneNumber as! String))
                 }
+                if let email = data.value(forKey: "email") {
+                    user.info.append(ContactValue(platform: "Email", value: email as! String))
+                }
+                if let value = data.value(forKey: "linkedin") {
+                    user.info.append(ContactValue(platform: "LinkedIn", value: value as! String))
+                }
+                if let value = data.value(forKey: "twitter") {
+                    user.info.append(ContactValue(platform: "Twitter", value: value as! String))
+                }
+                if let value = data.value(forKey: "snapchat") {
+                    user.info.append(ContactValue(platform: "Snapchat", value: value as! String))
+                }
+                
                 print("user:", user)
                 users.append(user)
             }
