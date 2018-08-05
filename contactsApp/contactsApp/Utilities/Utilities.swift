@@ -50,7 +50,7 @@ class UtilitiesManager {
                     if let firstName = data.value(forKey: "firstName") {
                         user.firstName = firstName as! String
                     }
-                    if let lastName = data.value(forKey: "firstName") {
+                    if let lastName = data.value(forKey: "lastName") {
                         user.lastName = lastName as! String
                     }
                     if let job = data.value(forKey: "jobTitle") {
@@ -111,6 +111,7 @@ class UtilitiesManager {
     }
     
     func saveContact(myself: Bool, contact: ContactsApp) -> Bool {
+        _ = findUser()
         let entity = NSEntityDescription.entity(forEntityName: "Contact", in: context)
         var currentUser: NSManagedObject
         if myself, currentUserObject != nil {
