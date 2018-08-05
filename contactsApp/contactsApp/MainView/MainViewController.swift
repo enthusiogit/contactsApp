@@ -17,13 +17,14 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        reloadData()
-        print("main view controller")
+        viewModel.reloadData = { [weak self] in self?.reloadData() }
+        viewModel.populateData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         print("view will appear")
         viewModel.resetUser()
+        viewModel.populateData()
         reloadData()
     }
     
@@ -49,8 +50,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             let contact = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactCell
             
-            contact.name.text = self.viewModel.users[indexPath.row - 1].firstName
-            contact.location.text = self.viewModel.users[indexPath.row - 1].lastName
+            contact.name.text = self.viewModel.users[indexPath.row - 1].firstName + " " + self.viewModel.users[indexPath.row - 1].lastName
+            contact.location.text = self.viewModel.users[indexPath.row - 1].info[0].value
             
             return contact
         }
