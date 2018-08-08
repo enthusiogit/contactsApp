@@ -39,36 +39,38 @@ class MainViewModel {
             let result = try self.context?.fetch(request)
             
             for data in result as! [NSManagedObject] {
-                haveUser = true
-                let user = ContactStruct(firstName: "", lastName: "", info: [])
-                
-                if let firstName = data.value(forKey: "firstName") {
-                    user.firstName = firstName as! String
+                if let firstName = data.value(forKey: "isMyself") == false {
+                    haveUser = true
+                    let user = ContactStruct(firstName: "", lastName: "", info: [])
+                    
+                    if let firstName = data.value(forKey: "firstName") {
+                        user.firstName = firstName as! String
+                    }
+                    if let lastName = data.value(forKey: "lastName") {
+                        user.lastName = lastName as! String
+                    }
+                    if let job = data.value(forKey: "jobTitle") {
+                        user.info.append(ContactValue(platform: "Job", value: job as! String))
+                    }
+                    if let phoneNumber = data.value(forKey: "phoneNumber") {
+                        user.info.append(ContactValue(platform: "Phone Number", value: phoneNumber as! String))
+                    }
+                    if let email = data.value(forKey: "email") {
+                        user.info.append(ContactValue(platform: "Email", value: email as! String))
+                    }
+                    if let value = data.value(forKey: "linkedin") {
+                        user.info.append(ContactValue(platform: "LinkedIn", value: value as! String))
+                    }
+                    if let value = data.value(forKey: "twitter") {
+                        user.info.append(ContactValue(platform: "Twitter", value: value as! String))
+                    }
+                    if let value = data.value(forKey: "snapchat") {
+                        user.info.append(ContactValue(platform: "Snapchat", value: value as! String))
+                    }
+                    
+                    print("user:", user)
+                    users.append(user)
                 }
-                if let lastName = data.value(forKey: "lastName") {
-                    user.lastName = lastName as! String
-                }
-                if let job = data.value(forKey: "jobTitle") {
-                    user.info.append(ContactValue(platform: "Job", value: job as! String))
-                }
-                if let phoneNumber = data.value(forKey: "phoneNumber") {
-                    user.info.append(ContactValue(platform: "Phone Number", value: phoneNumber as! String))
-                }
-                if let email = data.value(forKey: "email") {
-                    user.info.append(ContactValue(platform: "Email", value: email as! String))
-                }
-                if let value = data.value(forKey: "linkedin") {
-                    user.info.append(ContactValue(platform: "LinkedIn", value: value as! String))
-                }
-                if let value = data.value(forKey: "twitter") {
-                    user.info.append(ContactValue(platform: "Twitter", value: value as! String))
-                }
-                if let value = data.value(forKey: "snapchat") {
-                    user.info.append(ContactValue(platform: "Snapchat", value: value as! String))
-                }
-                
-                print("user:", user)
-                users.append(user)
             }
             
             if let reloadData = self.reloadData {
