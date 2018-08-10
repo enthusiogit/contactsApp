@@ -39,7 +39,7 @@ class MainViewModel {
             let result = try self.context?.fetch(request)
             
             for data in result as! [NSManagedObject] {
-                if let firstName = data.value(forKey: "isMyself") == false {
+                if data.value(forKey: "isMyself") as! Bool == false {
                     haveUser = true
                     let user = ContactStruct(firstName: "", lastName: "", info: [])
                     
