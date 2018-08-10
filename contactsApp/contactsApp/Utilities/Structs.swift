@@ -23,9 +23,22 @@ class ContactStruct: Decodable {
         self.lastName = lastName
         self.info = info
     }
+    
+    func toString() -> String {
+        var str = firstName + " " + lastName + "\n"
+        for val in info {
+            str += val.platform + ": " + val.value + "\n"
+        }
+        return str
+    }
 }
 
 struct ContactValue: Decodable {
     let platform: String
     let value: String
 }
+
+let PlatformDisplayNames = ["Job Title", "Phone Number", "Email", "LinkedIn", "Twitter", "Snapchat"]
+
+let PlatformStoredNames = ["jobTitle", "phoneNumber", "email", "linkedin", "twitter", "snapchat"]
+

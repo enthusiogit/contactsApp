@@ -15,7 +15,9 @@ class GenerateController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        user = UtilitiesManager.shared.getUser()
+        if let u = UtilitiesManager.shared.getUser() {
+            user = u
+        }
     }
     
     @IBAction func generateTouch(_ sender: Any) {
@@ -66,7 +68,7 @@ class GenerateController: UIViewController {
 
 extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return user.info.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -16,6 +16,7 @@ class MainViewModel {
     var users: [ContactStruct] = []
     var haveUser: Bool = false
     var currUser: ContactStruct?
+    let utility = UtilitiesManager.shared
     
     var reloadData: (()-> Void)?
     
@@ -25,7 +26,7 @@ class MainViewModel {
     }
     
     func resetUser() {
-        currUser = UtilitiesManager.shared.getUser()
+        currUser = utility.getUser()
     }
     
     func populateData() {
@@ -39,7 +40,7 @@ class MainViewModel {
             let result = try self.context?.fetch(request)
             
             for data in result as! [NSManagedObject] {
-                if let firstName = data.value(forKey: "isMyself") == false {
+                if let b = data.value(forKey: "isMyself") as? Bool, b == false {
                     haveUser = true
                     let user = ContactStruct(firstName: "", lastName: "", info: [])
                     
@@ -49,26 +50,14 @@ class MainViewModel {
                     if let lastName = data.value(forKey: "lastName") {
                         user.lastName = lastName as! String
                     }
-                    if let job = data.value(forKey: "jobTitle") {
-                        user.info.append(ContactValue(platform: "Job", value: job as! String))
-                    }
-                    if let phoneNumber = data.value(forKey: "phoneNumber") {
-                        user.info.append(ContactValue(platform: "Phone Number", value: phoneNumber as! String))
-                    }
-                    if let email = data.value(forKey: "email") {
-                        user.info.append(ContactValue(platform: "Email", value: email as! String))
-                    }
-                    if let value = data.value(forKey: "linkedin") {
-                        user.info.append(ContactValue(platform: "LinkedIn", value: value as! String))
-                    }
-                    if let value = data.value(forKey: "twitter") {
-                        user.info.append(ContactValue(platform: "Twitter", value: value as! String))
-                    }
-                    if let value = data.value(forKey: "snapchat") {
-                        user.info.append(ContactValue(platform: "Snapchat", value: value as! String))
+                    
+                    for i in 0..<PlatformStoredNames.count {
+                        if let val = data.value(forKey: PlatformStoredNames[i]) {
+                            user.info.append(ContactValue(platform: PlatformDisplayNames[i], value: val as! String))
+                        }
                     }
                     
-                    print("user:", user)
+                    print("user:", user.toString())
                     users.append(user)
                 }
             }
