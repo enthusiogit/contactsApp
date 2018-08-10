@@ -75,6 +75,7 @@ extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSour
         let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: "platformIdent", for: indexPath) as! platformsCell
         
         itemCell.image.image = images[indexPath.row]
+        // FIXME get image names from UtilitiesManager.shared.getStoredNameFromDisplayName(info[indexPath.row])
         
         return itemCell
     }

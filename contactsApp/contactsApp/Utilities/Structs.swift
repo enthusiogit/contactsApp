@@ -31,6 +31,15 @@ class ContactStruct: Decodable {
         }
         return str
     }
+
+    func getValueFromPlatform(_ platform: String) -> String? {
+        for val in info {
+            if val.platform == platform {
+                return val.value
+            }
+        }
+        return nil
+    }
 }
 
 struct ContactValue: Decodable {
