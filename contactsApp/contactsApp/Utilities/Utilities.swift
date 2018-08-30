@@ -47,7 +47,7 @@ class UtilitiesManager {
                         user.firstName = firstName as! String
                     }
                     if let lastName = data.value(forKey: "lastName") {
-                        user.lastName = lastName as! String
+                        user.lastName = lastName as? String
                     }
                     
                     for i in 0..<PlatformStoredNames.count {
@@ -107,26 +107,11 @@ class UtilitiesManager {
         currentUser.setValue(contact.contactsApp.firstName, forKey: "firstName")
         currentUser.setValue(contact.contactsApp.lastName, forKey: "lastName")
         for val in contact.contactsApp.info {
+            print("platform display name:", val.platform)
             if let storedName = getStoredNameFromDisplayName(val.platform) {
+                print("platform stored name:", val.platform)
                 currentUser.setValue(val.value, forKey: storedName)
             }
-            
-//            switch (val.platform) {
-//            case "Job":
-//                 currentUser.setValue(val.value, forKey: "jobTitle")
-//            case "Phone Number":
-//                currentUser.setValue(val.value, forKey: "phoneNumber")
-//            case "Email":
-//                currentUser.setValue(val.value, forKey: "email")
-//            case "LinkedIn":
-//                currentUser.setValue(val.value, forKey: "linkedin")
-//            case "Twitter":
-//                currentUser.setValue(val.value, forKey: "twitter")
-//            case "Snapchat":
-//                currentUser.setValue(val.value, forKey: "snapchat")
-//            default:
-//                print("unknown platform")
-//            }
         }
         
         do {
@@ -143,18 +128,18 @@ class UtilitiesManager {
     }
     
     func getStoredNameFromDisplayName(_ name: String) -> String? {
-        for storedName in PlatformStoredNames {
-            if name == storedName {
-                return storedName
+        for i in 0..<PlatformDisplayNames.count {
+            if name == PlatformDisplayNames[i] {
+                return PlatformStoredNames[i]
             }
         }
         return nil
     }
     
     func getDisplayNameFromStoredName(_ name: String) -> String? {
-        for displayName in PlatformDisplayNames {
-            if name == displayName {
-                return displayName
+        for i in 0..<PlatformStoredNames.count {
+            if name == PlatformStoredNames[i] {
+                return PlatformDisplayNames[i]
             }
         }
         return nil

@@ -27,6 +27,7 @@ class MainViewModel {
     
     func resetUser() {
         currUser = utility.getUser()
+        print("main view model last name:", currUser?.lastName)
     }
     
     func populateData() {

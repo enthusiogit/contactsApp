@@ -44,13 +44,24 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 0 {
             let personal = tableView.dequeueReusableCell(withIdentifier: "personalCell", for: indexPath) as! PersonalCell
             
-            personal.name.text = (viewModel.currUser?.firstName)! + " " + (viewModel.currUser?.lastName)!
+            if let user = viewModel.currUser {
+                var name = user.firstName
+                if let lastName = user.lastName, lastName != "" {
+                    name += " " + lastName
+                }
+                personal.name.text =  name
+            } else {
+                personal.name.text = "Click here to set up your profile"
+            }
             
             return personal
         } else {
             let contact = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactCell
-            
-            contact.name.text = self.viewModel.users[indexPath.row - 1].firstName + " " + self.viewModel.users[indexPath.row - 1].lastName
+            var name = viewModel.users[indexPath.row - 1].firstName
+            if let lastName = viewModel.users[indexPath.row - 1].lastName, lastName != "" {
+                name += " " + lastName
+            }
+            contact.name.text = name
             contact.location.text = self.viewModel.users[indexPath.row - 1].info[0].value
             
             return contact

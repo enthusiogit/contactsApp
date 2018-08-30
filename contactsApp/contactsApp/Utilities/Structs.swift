@@ -15,7 +15,7 @@ struct ContactsApp: Decodable {
 
 class ContactStruct: Decodable {
     var firstName: String
-    var lastName: String
+    var lastName: String?
     var info: [ContactValue]
     
     init(firstName: String, lastName: String, info: [ContactValue]) {
@@ -25,7 +25,11 @@ class ContactStruct: Decodable {
     }
     
     func toString() -> String {
-        var str = firstName + " " + lastName + "\n"
+        var str = firstName
+        if let last = lastName, last != "" {
+            str +=  " " + last + "\n"
+        }
+
         for val in info {
             str += val.platform + ": " + val.value + "\n"
         }
@@ -47,7 +51,7 @@ struct ContactValue: Decodable {
     let value: String
 }
 
-let PlatformDisplayNames = ["Job Title", "Phone Number", "Email", "LinkedIn", "Twitter", "Snapchat"]
+let PlatformDisplayNames = ["Job Title", "Phone Number", "Email", "LinkedIn", "Twitter", "Medium", "Instagram", "Snapchat"]
 
-let PlatformStoredNames = ["jobTitle", "phoneNumber", "email", "linkedin", "twitter", "snapchat"]
+let PlatformStoredNames = ["job_Title", "phone_Number", "email", "linkedIn", "twitter", "medium", "instagram", "snapchat"]
 
