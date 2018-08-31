@@ -68,7 +68,7 @@ class MainViewModel {
                     users.append(user)
                 }
             }
-g
+
             if let reloadData = self.reloadData {
                 reloadData()
             }

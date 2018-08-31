@@ -52,7 +52,7 @@ struct ContactValue: Decodable {
     let value: String
 }
 
-let PlatformDisplayNames = ["Job Title", "Phone Number", "Email", "LinkedIn", "Twitter", "Medium", "Instagram", "Snapchat"]
+let PlatformDisplayNames = ["Phone Number", "Email", "Job Title", "Location", "LinkedIn", "Twitter", "Medium", "Instagram", "Snapchat"]
 
-let PlatformStoredNames = ["job_Title", "phone_Number", "email", "linkedIn", "twitter", "medium", "instagram", "snapchat"]
+let PlatformStoredNames = ["phone_Number", "email", "job_Title", "location", "linkedIn", "twitter", "medium", "instagram", "snapchat"]
 

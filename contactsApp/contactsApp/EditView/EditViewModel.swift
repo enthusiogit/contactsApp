@@ -21,12 +21,12 @@ class EditViewModel {
         user = UtilitiesManager.shared.getUser()
     }
     
-    func saveData(_ image: UIImage, _ firstName: String, _ lastName: String, _ jobLabel: String, _ phonelabel: String, _ emailLabel: String, _ linkedinLabel: String, _ twitterLabel: String, _ snapchatLabel: String) {
+    func saveData(_ image: UIImage, _ firstName: String, _ lastName: String, _ jobLabel: String, _ phonelabel: String, _ emailLabel: String, _ linkedinLabel: String, _ twitterLabel: String, _ snapchatLabel: String, _ instagramLabel: String, _ mediumLabel: String, _ locationLabel: String) {
         print("Saving shit")
         
         var info: [ContactValue] = []
         if jobLabel != "" {
-            info.append(ContactValue(platform: "Job", value: jobLabel))
+            info.append(ContactValue(platform: "Job Title", value: jobLabel))
         }
         if phonelabel != "" {
             info.append(ContactValue(platform: "Phone Number", value: phonelabel))
@@ -42,6 +42,15 @@ class EditViewModel {
         }
         if snapchatLabel != "" {
             info.append(ContactValue(platform: "Snapchat", value: snapchatLabel))
+        }
+        if instagramLabel != "" {
+            info.append(ContactValue(platform: "Instagram", value: instagramLabel))
+        }
+        if mediumLabel != "" {
+            info.append(ContactValue(platform: "Medium", value: mediumLabel))
+        }
+        if locationLabel != "" {
+            info.append(ContactValue(platform: "Location", value: locationLabel))
         }
 
         let user = ContactStruct(firstName: firstName, lastName: lastName, info: info, deviceID: UtilitiesManager.shared.deviceID)

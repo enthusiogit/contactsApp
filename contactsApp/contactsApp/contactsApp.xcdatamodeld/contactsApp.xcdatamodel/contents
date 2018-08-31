@@ -9,12 +9,13 @@
         <attribute name="job_Title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="linkedIn" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="medium" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone_Number" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="snapchat" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="twitter" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Contact" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="Contact" positionX="-63" positionY="-18" width="128" height="240"/>
     </elements>
 </model>

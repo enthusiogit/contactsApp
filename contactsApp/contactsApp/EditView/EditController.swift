@@ -21,6 +21,10 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var linkedinLabel: UITextField!
     @IBOutlet weak var twitterLabel: UITextField!
     @IBOutlet weak var snapchatLabel: UITextField!
+    @IBOutlet weak var locationLabel: UITextField!
+    @IBOutlet weak var instagramLabel: UITextField!
+    @IBOutlet weak var mediumLabel: UITextField!
+    
     
     //FIXME reload the get current user call after adding in your own data
     
@@ -38,7 +42,7 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
 
     @IBAction func saveButton(_ sender: Any) {
-        viewModel.saveData(avatar.currentImage!, firstLabel.text!, lastLabel.text!, jobLabel.text!, phonelabel.text!, emailLabel.text!, linkedinLabel.text!, twitterLabel.text!, snapchatLabel.text!)
+        viewModel.saveData(avatar.currentImage!, firstLabel.text!, lastLabel.text!, jobLabel.text!, phonelabel.text!, emailLabel.text!, linkedinLabel.text!, twitterLabel.text!, snapchatLabel.text!, instagramLabel.text!, mediumLabel.text!, locationLabel.text!)
         
         self.navigationController?.popViewController(animated: true)
     }
@@ -77,15 +81,18 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
         firstLabel.text = contact.firstName
         lastLabel.text = contact.lastName
         jobLabel.text = ""
+        locationLabel.text = ""
         phonelabel.text = ""
         emailLabel.text = ""
         linkedinLabel.text = ""
         twitterLabel.text = ""
+        mediumLabel.text = ""
+        instagramLabel.text = ""
         snapchatLabel.text = ""
         
         for info in contact.info {
             switch (info.platform) {
-            case "Job":
+            case "Job Title":
                 jobLabel.text = info.value
             case "Phone Number":
                 phonelabel.text = info.value
@@ -97,6 +104,12 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
                 twitterLabel.text = info.value
             case "Snapchat":
                 snapchatLabel.text = info.value
+            case "Instagram":
+                instagramLabel.text = info.value
+            case "Medium":
+                mediumLabel.text = info.value
+            case "Location":
+                locationLabel.text = info.value
             default:
                 print("unknown platform")
             }

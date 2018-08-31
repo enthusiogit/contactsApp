@@ -54,7 +54,9 @@ class UtilitiesManager {
                     }
                     
                     for i in 0..<PlatformStoredNames.count {
+                        print("Stored: ", PlatformStoredNames[i])
                         if let val = data.value(forKey: PlatformStoredNames[i]) {
+                            print("Display: ", PlatformDisplayNames[i])
                             user.info.append(ContactValue(platform: PlatformDisplayNames[i], value: val as! String))
                         }
                     }
