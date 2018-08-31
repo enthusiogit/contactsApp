@@ -21,7 +21,6 @@ class ContactController: UIViewController {
             platformValues.append(info.value)
         }
     }
-    
 }
 
 extension ContactController: UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegateFlowLayout {
