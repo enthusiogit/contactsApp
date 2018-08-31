@@ -9,15 +9,25 @@
 import UIKit
 
 class GenerateController: UIViewController {
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     var user: ContactStruct = ContactStruct(firstName: "", lastName: "", info: [])
-    var selected = ["Job": true, "Phone Number": true, "Email": true, "LinkedIn": true, "Twitter": true]
-    let images = [#imageLiteral(resourceName: "phone"), #imageLiteral(resourceName: "Message"), #imageLiteral(resourceName: "video"), #imageLiteral(resourceName: "Email"), #imageLiteral(resourceName: "Share")]
+    var selected = ["Job Title": true, "Phone Number": true, "Email": true, "LinkedIn": true, "Twitter": true]
+//    let images = [#imageLiteral(resourceName: "phone"), #imageLiteral(resourceName: "Message"), #imageLiteral(resourceName: "video"), #imageLiteral(resourceName: "Email"), #imageLiteral(resourceName: "Share")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if let u = UtilitiesManager.shared.getUser() {
             user = u
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let u = UtilitiesManager.shared.getUser() {
+            user = u
+        }
+        collectionView.reloadData()
     }
     
     @IBAction func generateTouch(_ sender: Any) {
@@ -79,7 +89,8 @@ extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: "platformIdent", for: indexPath) as! platformsCell
         
-        itemCell.image.image = images[indexPath.row]
+        let image = UtilitiesManager.shared.getStoredNameFromDisplayName(user.info[indexPath.row].platform)
+        itemCell.image.image = UIImage (named: image!)
         // FIXME get image names from UtilitiesManager.shared.getStoredNameFromDisplayName(info[indexPath.row])
         
         return itemCell
