@@ -10,18 +10,19 @@ import Foundation
 
 struct ContactsApp: Decodable {
     let contactsApp: ContactStruct
-    let deviceID: String
 }
 
 class ContactStruct: Decodable {
     var firstName: String
     var lastName: String?
     var info: [ContactValue]
+    var deviceID: String
     
-    init(firstName: String, lastName: String, info: [ContactValue]) {
+    init(firstName: String, lastName: String, info: [ContactValue], deviceID: String) {
         self.firstName = firstName
         self.lastName = lastName
         self.info = info
+        self.deviceID = deviceID
     }
     
     func toString() -> String {

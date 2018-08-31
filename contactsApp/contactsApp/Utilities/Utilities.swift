@@ -41,13 +41,16 @@ class UtilitiesManager {
                 for data in result as! [NSManagedObject] {
                     haveUser = true
                     currentUserObject = data
-                    let user = ContactStruct(firstName: "", lastName: "", info: [])
+                    let user = ContactStruct(firstName: "", lastName: "", info: [], deviceID: "")
                     
                     if let firstName = data.value(forKey: "firstName") {
                         user.firstName = firstName as! String
                     }
                     if let lastName = data.value(forKey: "lastName") {
                         user.lastName = lastName as? String
+                    }
+                    if let deviceID = data.value(forKey: "deviceID") {
+                        user.deviceID = deviceID as! String
                     }
                     
                     for i in 0..<PlatformStoredNames.count {
@@ -91,7 +94,7 @@ class UtilitiesManager {
         return nil
     }
     
-    func saveContact(myself: Bool, contact: ContactsApp) -> Bool {
+    func saveContact(myself: Bool, contact: ContactStruct) -> Bool {
         _ = findUser()
         let entity = NSEntityDescription.entity(forEntityName: "Contact", in: context)
         var currentUser: NSManagedObject
@@ -104,9 +107,9 @@ class UtilitiesManager {
         
         currentUser.setValue(contact.deviceID, forKey: "deviceID")
         currentUser.setValue(myself, forKey: "isMyself")
-        currentUser.setValue(contact.contactsApp.firstName, forKey: "firstName")
-        currentUser.setValue(contact.contactsApp.lastName, forKey: "lastName")
-        for val in contact.contactsApp.info {
+        currentUser.setValue(contact.firstName, forKey: "firstName")
+        currentUser.setValue(contact.lastName, forKey: "lastName")
+        for val in contact.info {
             print("platform display name:", val.platform)
             if let storedName = getStoredNameFromDisplayName(val.platform) {
                 print("platform stored name:", val.platform)
@@ -118,12 +121,31 @@ class UtilitiesManager {
             try context.save()
             if myself {
                 print("caching user")
-                cacheUser(user: contact.contactsApp)
+                cacheUser(user: contact)
             }
             return true
         } catch {
             print("Failed saving")
             return false
+        }
+    }
+    
+    func deleteContact(contact: ContactStruct) {
+        print("deviceID:", contact.deviceID)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Contact")
+        request.predicate = NSPredicate(format: "deviceID == %@", contact.deviceID)
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            
+            if result.count == 1 {
+                for object in result as! [NSManagedObject] {
+                    print("delete user")
+                    context.delete(object)
+                }
+            }
+        } catch {
+            print("failed to delete contact")
         }
     }
     

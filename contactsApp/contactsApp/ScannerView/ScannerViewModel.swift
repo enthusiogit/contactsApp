@@ -36,7 +36,7 @@ class ScannerViewModel {
             for val in result.contactsApp.info {
                 print(val.platform + ":", val.value)
             }
-            if UtilitiesManager.shared.saveContact(myself: false, contact: result) {
+            if UtilitiesManager.shared.saveContact(myself: false, contact: result.contactsApp) {
                 print("successfully saved new contact")
             } else {
                 print("failed to save new contact")

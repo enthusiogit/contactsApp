@@ -87,6 +87,18 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        print("editActions for row at")
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        print("delete for row at:", indexPath.row-1)
+        let deleteUser = viewModel.users[indexPath.row-1]
+        UtilitiesManager.shared.deleteContact(contact: deleteUser)
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "viewContactSeg" {
             let viewController = segue.destination as! ContactController

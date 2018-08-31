@@ -34,43 +34,46 @@ class MainViewModel {
         
         users = []
         
-        for _ in 0...5 {
-            users.append(currUser!)
-        }
+//        for _ in 0...5 {
+//            users.append(currUser!)
+//        }
         
-//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Contact")
-//        request.returnsObjectsAsFaults = false
-//        do {
-//            let result = try self.context?.fetch(request)
-//
-//            for data in result as! [NSManagedObject] {
-//                if let b = data.value(forKey: "isMyself") as? Bool, b == false {
-//                    haveUser = true
-//                    let user = ContactStruct(firstName: "", lastName: "", info: [])
-//
-//                    if let firstName = data.value(forKey: "firstName") {
-//                        user.firstName = firstName as! String
-//                    }
-//                    if let lastName = data.value(forKey: "lastName") {
-//                        user.lastName = lastName as! String
-//                    }
-//
-//                    for i in 0..<PlatformStoredNames.count {
-//                        if let val = data.value(forKey: PlatformStoredNames[i]) {
-//                            user.info.append(ContactValue(platform: PlatformDisplayNames[i], value: val as! String))
-//                        }
-//                    }
-//
-//                    print("user:", user.toString())
-//                    users.append(user)
-//                }
-//            }
-        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Contact")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try self.context?.fetch(request)
+
+            for data in result as! [NSManagedObject] {
+                if let b = data.value(forKey: "isMyself") as? Bool, b == false {
+                    haveUser = true
+                    let user = ContactStruct(firstName: "", lastName: "", info: [], deviceID: "")
+
+                    if let firstName = data.value(forKey: "firstName") {
+                        user.firstName = firstName as! String
+                    }
+                    if let lastName = data.value(forKey: "lastName") {
+                        user.lastName = lastName as? String
+                    }
+                    if let deviceID = data.value(forKey: "deviceID") {
+                        user.deviceID = deviceID as! String
+                    }
+
+                    for i in 0..<PlatformStoredNames.count {
+                        if let val = data.value(forKey: PlatformStoredNames[i]) {
+                            user.info.append(ContactValue(platform: PlatformDisplayNames[i], value: val as! String))
+                        }
+                    }
+
+                    print("user:", user.toString())
+                    users.append(user)
+                }
+            }
+g
             if let reloadData = self.reloadData {
                 reloadData()
             }
-//        } catch {
-//            print("Failed")
-//        }
+        } catch {
+            print("Failed")
+        }
     }
 }

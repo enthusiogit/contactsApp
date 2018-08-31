@@ -9,7 +9,7 @@
 import UIKit
 
 class GenerateController: UIViewController {
-    var user: ContactStruct = ContactStruct(firstName: "", lastName: "", info: [])
+    var user: ContactStruct = ContactStruct(firstName: "", lastName: "", info: [], deviceID: "")
     var selected = ["Job": true, "Phone Number": true, "Email": true, "LinkedIn": true, "Twitter": true]
     let images = [#imageLiteral(resourceName: "phone"), #imageLiteral(resourceName: "Message"), #imageLiteral(resourceName: "video"), #imageLiteral(resourceName: "Email"), #imageLiteral(resourceName: "Share")]
     
@@ -42,6 +42,7 @@ class GenerateController: UIViewController {
         if let lastName = user.lastName, lastName != "" {
             QRString += "\",\"lastName\":\"" + lastName
         }
+        QRString += "\"deviceID\":\"" + UtilitiesManager.shared.deviceID + "\""
         QRString += "\",\"info\":["
         
         var i = 0
@@ -57,8 +58,7 @@ class GenerateController: UIViewController {
             }
         }
         
-        QRString += "]},"
-        QRString += "\"deviceID\":\"" + UtilitiesManager.shared.deviceID + "\"}"
+        QRString += "]}}"
         
         return QRString
     }

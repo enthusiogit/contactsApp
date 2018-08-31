@@ -44,9 +44,8 @@ class EditViewModel {
             info.append(ContactValue(platform: "Snapchat", value: snapchatLabel))
         }
 
-        let user = ContactStruct(firstName: firstName, lastName: lastName, info: info)
-        let contact = ContactsApp(contactsApp: user, deviceID: UtilitiesManager.shared.deviceID)
-        if UtilitiesManager.shared.saveContact(myself: true, contact: contact) {
+        let user = ContactStruct(firstName: firstName, lastName: lastName, info: info, deviceID: UtilitiesManager.shared.deviceID)
+        if UtilitiesManager.shared.saveContact(myself: true, contact: user) {
             print("successfully saved user info")
         } else {
             print("failed to save user info")

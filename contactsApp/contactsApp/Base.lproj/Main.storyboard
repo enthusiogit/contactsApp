@@ -377,6 +377,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="avatar" destination="0PZ-Rp-La0" id="7Cl-28-R10"/>
+                                            <outlet property="contactView" destination="S7H-MD-AiX" id="0Qd-Dd-6Jj"/>
                                             <outlet property="location" destination="EAP-j5-B84" id="AAm-yu-Ega"/>
                                             <outlet property="name" destination="lPN-CF-vhc" id="eda-mf-Yr9"/>
                                         </connections>
