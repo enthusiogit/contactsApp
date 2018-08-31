@@ -32,7 +32,7 @@ class ScannerViewModel {
             let result = try JSONDecoder().decode(ContactsApp.self, from: data)
             print("user:", result.contactsApp)
             print("firstName:", result.contactsApp.firstName)
-            print("lastName:", result.contactsApp.lastName)
+            print("lastName:", result.contactsApp.lastName ?? "nil")
             for val in result.contactsApp.info {
                 print(val.platform + ":", val.value)
             }

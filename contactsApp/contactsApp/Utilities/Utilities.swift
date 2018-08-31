@@ -27,11 +27,7 @@ class UtilitiesManager {
         recoginizer = "contactsApp"
         deviceID = UIDevice.current.identifierForVendor!.uuidString
         
-        if getUser() == nil {
-            _ = findUser()
-        } else {
-            haveUser = true
-        }
+        haveUser = (getUser() != nil)
     }
     
     func findUser() -> ContactStruct? {
@@ -51,27 +47,15 @@ class UtilitiesManager {
                         user.firstName = firstName as! String
                     }
                     if let lastName = data.value(forKey: "lastName") {
-                        user.lastName = lastName as! String
+                        user.lastName = lastName as? String
                     }
-                    if let job = data.value(forKey: "jobTitle") {
-                        user.info.append(ContactValue(platform: "Job", value: job as! String))
+                    
+                    for i in 0..<PlatformStoredNames.count {
+                        if let val = data.value(forKey: PlatformStoredNames[i]) {
+                            user.info.append(ContactValue(platform: PlatformDisplayNames[i], value: val as! String))
+                        }
                     }
-                    if let phoneNumber = data.value(forKey: "phoneNumber") {
-                        user.info.append(ContactValue(platform: "Phone Number", value: phoneNumber as! String))
-                    }
-                    if let email = data.value(forKey: "email") {
-                        user.info.append(ContactValue(platform: "Email", value: email as! String))
-                    }
-                    if let value = data.value(forKey: "linkedin") {
-                        user.info.append(ContactValue(platform: "LinkedIn", value: value as! String))
-                    }
-                    if let value = data.value(forKey: "twitter") {
-                        user.info.append(ContactValue(platform: "Twitter", value: value as! String))
-                    }
-                    if let value = data.value(forKey: "snapchat") {
-                        user.info.append(ContactValue(platform: "Snapchat", value: value as! String))
-                    }
-                    print("user:", user)
+                    print("user:", user.toString())
                     
                     cacheUser(user: user)
                     return user
@@ -95,19 +79,16 @@ class UtilitiesManager {
         return nil
     }
     
-    func getUser() -> ContactStruct {
-        var currUser: ContactStruct
+    func getUser() -> ContactStruct? {
         if let cachedUser = getCachedUser() {
             print("getting user from cache")
-            currUser = cachedUser
+            return cachedUser
         } else if let coreUser = findUser() {
             print("getting user from core data")
-            currUser = coreUser
-        } else {
-            print("no profile started")
-            currUser = ContactStruct(firstName: "", lastName: "", info: [])
+            cacheUser(user: coreUser)
+            return coreUser
         }
-        return currUser
+        return nil
     }
     
     func saveContact(myself: Bool, contact: ContactsApp) -> Bool {
@@ -126,21 +107,10 @@ class UtilitiesManager {
         currentUser.setValue(contact.contactsApp.firstName, forKey: "firstName")
         currentUser.setValue(contact.contactsApp.lastName, forKey: "lastName")
         for val in contact.contactsApp.info {
-            switch (val.platform) {
-            case "Job":
-                 currentUser.setValue(val.value, forKey: "jobTitle")
-            case "Phone Number":
-                currentUser.setValue(val.value, forKey: "phoneNumber")
-            case "Email":
-                currentUser.setValue(val.value, forKey: "email")
-            case "LinkedIn":
-                currentUser.setValue(val.value, forKey: "linkedin")
-            case "Twitter":
-                currentUser.setValue(val.value, forKey: "twitter")
-            case "Snapchat":
-                currentUser.setValue(val.value, forKey: "snapchat")
-            default:
-                print("unknown platform")
+            print("platform display name:", val.platform)
+            if let storedName = getStoredNameFromDisplayName(val.platform) {
+                print("platform stored name:", val.platform)
+                currentUser.setValue(val.value, forKey: storedName)
             }
         }
         
@@ -155,5 +125,23 @@ class UtilitiesManager {
             print("Failed saving")
             return false
         }
+    }
+    
+    func getStoredNameFromDisplayName(_ name: String) -> String? {
+        for i in 0..<PlatformDisplayNames.count {
+            if name == PlatformDisplayNames[i] {
+                return PlatformStoredNames[i]
+            }
+        }
+        return nil
+    }
+    
+    func getDisplayNameFromStoredName(_ name: String) -> String? {
+        for i in 0..<PlatformStoredNames.count {
+            if name == PlatformStoredNames[i] {
+                return PlatformDisplayNames[i]
+            }
+        }
+        return nil
     }
 }
