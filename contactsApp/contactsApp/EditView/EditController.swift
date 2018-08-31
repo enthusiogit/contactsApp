@@ -22,15 +22,7 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var twitterLabel: UITextField!
     @IBOutlet weak var snapchatLabel: UITextField!
     
-    
-    
-    
     //FIXME reload the get current user call after adding in your own data
-    
-    
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +69,10 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
 
     func populateFields() {
-        let contact = viewModel.user
+        guard let contact = viewModel.user else {
+            print("User profile does not exist. returning")
+            return
+        }
         
         firstLabel.text = contact.firstName
         lastLabel.text = contact.lastName

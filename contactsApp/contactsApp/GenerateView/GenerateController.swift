@@ -15,7 +15,9 @@ class GenerateController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        user = UtilitiesManager.shared.getUser()
+        if let u = UtilitiesManager.shared.getUser() {
+            user = u
+        }
     }
     
     @IBAction func generateTouch(_ sender: Any) {
@@ -36,7 +38,12 @@ class GenerateController: UIViewController {
     func compileString() -> String {
         var QRString = "{\"" + UtilitiesManager.shared.recoginizer + "\":{"
         
-        QRString += "\"firstName\":\"" + user.firstName + "\",\"lastName\":\"" + user.lastName + "\",\"info\":["
+        QRString += "\"firstName\":\"" + user.firstName
+        if let lastName = user.lastName, lastName != "" {
+            QRString += "\",\"lastName\":\"" + lastName
+        }
+        QRString += "\",\"info\":["
+        
         var i = 0
         let count = user.info.count
         for val in user.info {
@@ -66,13 +73,14 @@ class GenerateController: UIViewController {
 
 extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return user.info.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: "platformIdent", for: indexPath) as! platformsCell
         
         itemCell.image.image = images[indexPath.row]
+        // FIXME get image names from UtilitiesManager.shared.getStoredNameFromDisplayName(info[indexPath.row])
         
         return itemCell
     }
