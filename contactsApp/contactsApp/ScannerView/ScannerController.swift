@@ -58,7 +58,7 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
                 if object.type == AVMetadataObject.ObjectType.qr {
                     self.session.stopRunning()
-                    viewModel.saveData(qrString: object.stringValue!)    
+                    viewModel.saveData(qrString: object.stringValue!)
                 }
             }
         }
