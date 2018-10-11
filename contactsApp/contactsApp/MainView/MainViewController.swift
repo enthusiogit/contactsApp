@@ -96,7 +96,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         print("delete for row at:", indexPath.row-1)
         let deleteUser = viewModel.users[indexPath.row-1]
         UtilitiesManager.shared.deleteContact(contact: deleteUser)
-        
+        viewModel.users.remove(at: indexPath.row-1)
+        tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

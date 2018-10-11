@@ -47,12 +47,12 @@ class GenerateController: UIViewController {
     func compileString() -> String {
         var QRString = "{\"" + UtilitiesManager.shared.recoginizer + "\":{"
         
-        QRString += "\"firstName\":\"" + user.firstName
+        QRString += "\"firstName\":\"" + user.firstName + "\""
         if let lastName = user.lastName, lastName != "" {
-            QRString += "\",\"lastName\":\"" + lastName
+            QRString += "\",\"lastName\":\"" + lastName + "\""
         }
-        QRString += "\"deviceID\":\"" + UtilitiesManager.shared.deviceID + "\""
-        QRString += "\",\"info\":["
+        QRString += ",\"deviceID\":\"" + UtilitiesManager.shared.deviceID + "\""
+        QRString += ",\"info\":["
         
         var i = 0
         let count = user.info.count
