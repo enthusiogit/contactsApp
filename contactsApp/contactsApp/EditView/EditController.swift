@@ -25,6 +25,7 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var instagramLabel: UITextField!
     @IBOutlet weak var mediumLabel: UITextField!
     
+    var fromGenerate: Bool = false
     
     //FIXME reload the get current user call after adding in your own data
     
@@ -35,16 +36,26 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(noti:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         populateFields()
+        
+        if fromGenerate {
+            print("from generate. setting back title to back")
+            self.navigationController?.navigationBar.topItem?.title = "Back"
+        }
     }
     
     deinit {
+        print("edit controller deinit")
         NotificationCenter.default.removeObserver(self)
     }
 
     @IBAction func saveButton(_ sender: Any) {
         viewModel.saveData(avatar.currentImage!, firstLabel.text!, lastLabel.text!, jobLabel.text!, phonelabel.text!, emailLabel.text!, linkedinLabel.text!, twitterLabel.text!, snapchatLabel.text!, instagramLabel.text!, mediumLabel.text!, locationLabel.text!)
         
-        self.navigationController?.popViewController(animated: true)
+        if fromGenerate {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func avatarPress(_ sender: Any) {
@@ -59,7 +70,6 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     func setUpView() {
         avatar.imageView?.contentMode = UIViewContentMode.scaleAspectFill
-
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {

@@ -9,23 +9,33 @@
 import UIKit
 
 class GenerateController: UIViewController {
-    var user: ContactStruct = ContactStruct(firstName: "", lastName: "", info: [], deviceID: "")
+    var user: ContactStruct? = nil
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var noInfoView: UIVisualEffectView!
     
     var selected = ["Job Title": true, "Phone Number": true, "Email": true, "LinkedIn": true, "Twitter": true]
 //    let images = [#imageLiteral(resourceName: "phone"), #imageLiteral(resourceName: "Message"), #imageLiteral(resourceName: "video"), #imageLiteral(resourceName: "Email"), #imageLiteral(resourceName: "Share")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupGestures()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if let u = UtilitiesManager.shared.getUser() {
             user = u
+            noInfoView.isHidden = true
+        } else {
+            print("curr user dne")
+            noInfoView.isHidden = false
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if let u = UtilitiesManager.shared.getUser() {
-            user = u
-        }
+//        if let u = UtilitiesManager.shared.getUser() {
+//            user = u
+//        }
         collectionView.reloadData()
     }
     
@@ -33,7 +43,12 @@ class GenerateController: UIViewController {
         //FIXME chang sharpness of image
         // https://stackoverflow.com/questions/22374971/ios-7-core-image-qr-code-generation-too-blur
         
-        let jsonString = compileString()
+        guard let u = user else {
+            print("user is nil")
+            return
+        }
+        
+        let jsonString = compileString(u)
         print("jsonString:", jsonString)
         let qrData = jsonString.data(using: .ascii, allowLossyConversion: false)
         let filter = CIFilter(name: "CIQRCodeGenerator")
@@ -44,7 +59,7 @@ class GenerateController: UIViewController {
         performSegue(withIdentifier: "updateQRImageSeg", sender: img)
     }
     
-    func compileString() -> String {
+    func compileString(_ user: ContactStruct) -> String {
         var QRString = "{\"" + UtilitiesManager.shared.recoginizer + "\":{"
         
         QRString += "\"firstName\":\"" + user.firstName + "\""
@@ -73,22 +88,42 @@ class GenerateController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! QRViewController
-        vc.imgURL = sender as? UIImage
+        if segue.identifier == "updateQRImageSeg" {
+            let vc = segue.destination as! QRViewController
+            vc.imgURL = sender as? UIImage
+        } else if segue.identifier == "generateToEditSeg" {
+            let navVC = segue.destination as! ContactsTabNavigationController
+            let childVC = navVC.topViewController as! MainViewController
+            childVC.fromGenerate = true
+        }
     }
     
+}
+
+extension GenerateController: UIGestureRecognizerDelegate {
     
+    func setupGestures() {
+        let noInfoTap = UITapGestureRecognizer(target: self, action: #selector(self.respondToNoInfoTap))
+        noInfoTap.delegate = self
+        noInfoView.addGestureRecognizer(noInfoTap)
+    }
+    
+    @objc func respondToNoInfoTap(gesture: UIGestureRecognizer) {
+        performSegue(withIdentifier: "generateToEditSeg", sender: nil)
+    }
 }
 
 extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return user.info.count
+        return (user == nil) ? 0 : user!.info.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: "platformIdent", for: indexPath) as! platformsCell
         
-        let image = UtilitiesManager.shared.getStoredNameFromDisplayName(user.info[indexPath.row].platform)
+        guard let u = user else { return itemCell }
+        
+        let image = UtilitiesManager.shared.getStoredNameFromDisplayName(u.info[indexPath.row].platform)
         itemCell.image.image = UIImage (named: image!)
         // FIXME get image names from UtilitiesManager.shared.getStoredNameFromDisplayName(info[indexPath.row])
         

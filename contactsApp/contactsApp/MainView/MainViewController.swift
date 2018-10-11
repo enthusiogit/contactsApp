@@ -12,16 +12,34 @@ class MainViewController: UIViewController {
     let viewModel = MainViewModel()
     var userIDToPass: String?
     var userToPass: ContactStruct?
+    var fromGenerate: Bool = false
 
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if fromGenerate {
+            print("from generate. instantiating edit controller")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let edit = storyboard.instantiateViewController(withIdentifier: "editController")
+            let editVC = edit as! EditController
+            editVC.fromGenerate = true
+            self.navigationController?.pushViewController(edit, animated: false)
+            return
+        }
+        
         viewModel.reloadData = { [weak self] in self?.reloadData() }
         viewModel.populateData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if fromGenerate {
+            print("dismissing navigation controller")
+            self.navigationController?.dismiss(animated: false, completion: nil)
+            return
+        }
+        
         print("view will appear")
         viewModel.resetUser()
         viewModel.populateData()

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E0FB6D321700A570002E385 /* ContactsTabNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0FB6D221700A570002E385 /* ContactsTabNavigationController.swift */; };
 		B05E956721002F5B007420B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05E956621002F5B007420B5 /* AppDelegate.swift */; };
 		B05E956921002F5B007420B5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05E956821002F5B007420B5 /* MainViewController.swift */; };
 		B05E956C21002F5B007420B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B05E956A21002F5B007420B5 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6E0FB6D221700A570002E385 /* ContactsTabNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTabNavigationController.swift; sourceTree = "<group>"; };
 		B05E956321002F5B007420B5 /* contactsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = contactsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B05E956621002F5B007420B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B05E956821002F5B007420B5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			children = (
 				B06053402101C9CA0035EB5F /* Structs.swift */,
 				B060534821068F0A0035EB5F /* Utilities.swift */,
+				6E0FB6D221700A570002E385 /* ContactsTabNavigationController.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 			files = (
 				B060535421081DD80035EB5F /* platformsCell.swift in Sources */,
 				B05E9585210042A3007420B5 /* ContactExpandedCell.swift in Sources */,
+				6E0FB6D321700A570002E385 /* ContactsTabNavigationController.swift in Sources */,
 				B060533C2101674D0035EB5F /* EditController.swift in Sources */,
 				B05E95832100428E007420B5 /* ContactCell.swift in Sources */,
 				B05E9587210042CC007420B5 /* PlatformCell.swift in Sources */,
