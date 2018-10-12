@@ -81,13 +81,19 @@ class GenerateController: UIViewController {
     
 }
 
-extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return user.info.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: "platformIdent", for: indexPath) as! platformsCell
+        
+        if itemCell.isSelected == true{
+            itemCell.selectedView.isHidden = false
+        } else {
+            itemCell.selectedView.isHidden = true
+        }
         
         let image = UtilitiesManager.shared.getStoredNameFromDisplayName(user.info[indexPath.row].platform)
         itemCell.image.image = UIImage (named: image!)
@@ -99,14 +105,22 @@ extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 80, height: 80)
     }
-    
-//    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("You selected jam cell #\(indexPath.row)!")
-//
-//        // Get Jam ID
-//        jamIDForSegue = viewModel.jam(at: indexPath.row).ID
-//        self.performSegue(withIdentifier: "mainToWatchSeg", sender: indexPath.row)
-//    }
+
+
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("You selected jam cell #\(indexPath.row)!")
+        
+        let cell = collectionView.cellForItem(at: indexPath) as! platformsCell
+
+        if cell.isSelected == true && cell.selectedView.isHidden == true {
+            cell.selectedView.isHidden = false
+            // FIXME add the cell to the qr label
+        } else {
+            cell.selectedView.isHidden = true
+            // FIXME remove the cell to the qr label
+        }
+        
+    }
 //
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if segue.identifier == "mainToWatchSeg" {
