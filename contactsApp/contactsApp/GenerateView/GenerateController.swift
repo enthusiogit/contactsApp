@@ -9,11 +9,13 @@
 import UIKit
 
 class GenerateController: UIViewController {
+    private unowned let utility = UtilitiesManager.shared
+    
     var user: ContactStruct? = nil
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var noInfoView: UIVisualEffectView!
     
-    var selected = ["Job Title": true, "Phone Number": true, "Email": true, "LinkedIn": true, "Twitter": true]
+    var selected: [String : Bool] = [:]// ["Job Title": true, "Phone Number": true, "Email": true, "LinkedIn": true, "Twitter": true]
 //    let images = [#imageLiteral(resourceName: "phone"), #imageLiteral(resourceName: "Message"), #imageLiteral(resourceName: "video"), #imageLiteral(resourceName: "Email"), #imageLiteral(resourceName: "Share")]
     
     override func viewDidLoad() {
@@ -26,16 +28,25 @@ class GenerateController: UIViewController {
         if let u = UtilitiesManager.shared.getUser() {
             user = u
             noInfoView.isHidden = true
+            setSelected()
         } else {
             print("curr user dne")
             noInfoView.isHidden = false
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+//    override func viewDidAppear(_ animated: Bool) {
 //        if let u = UtilitiesManager.shared.getUser() {
 //            user = u
 //        }
+//        collectionView.reloadData()
+//    }
+    
+    func setSelected() {
+        guard let u = user else { return }
+        for val in u.info {
+            selected[val.platform] = true
+        }
         collectionView.reloadData()
     }
     
@@ -77,7 +88,7 @@ class GenerateController: UIViewController {
                 QRString += "\"value\":\"" + val.value + "\"}"
             }
             i += 1
-            if i < count {
+            if selected[val.platform] == true, i < count {
                 QRString += ","
             }
         }
@@ -121,11 +132,10 @@ extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: "platformIdent", for: indexPath) as! platformsCell
         
-        guard let u = user else { return itemCell }
+        guard let u = user, let imageName = utility.getStoredNameFromDisplayName(u.info[indexPath.row].platform), selected[u.info[indexPath.row].platform] != nil else { return itemCell }
         
-        let image = UtilitiesManager.shared.getStoredNameFromDisplayName(u.info[indexPath.row].platform)
-        itemCell.image.image = UIImage (named: image!)
-        // FIXME get image names from UtilitiesManager.shared.getStoredNameFromDisplayName(info[indexPath.row])
+        itemCell.image.image = UIImage(imageLiteralResourceName: imageName)
+        itemCell.alphaLayer.isHidden = selected[u.info[indexPath.row].platform]!
         
         return itemCell
     }
@@ -134,18 +144,16 @@ extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSour
         return CGSize(width: 80, height: 80)
     }
     
-//    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("You selected jam cell #\(indexPath.row)!")
-//
-//        // Get Jam ID
-//        jamIDForSegue = viewModel.jam(at: indexPath.row).ID
-//        self.performSegue(withIdentifier: "mainToWatchSeg", sender: indexPath.row)
-//    }
-//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "mainToWatchSeg" {
-//            let viewController = segue.destination as! WatchController
-//            viewController.jamID = jamIDForSegue
-//        }
-//    }
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("You selected jam cell #\(indexPath.row)!")
+        
+        let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: "platformIdent", for: indexPath) as! platformsCell
+        
+        guard let u = user, selected[u.info[indexPath.row].platform] != nil else { return }
+        let selectedNow = !selected[u.info[indexPath.row].platform]!
+        print("selectedNow:", selectedNow)
+        itemCell.alphaLayer.isHidden = selectedNow
+        selected[u.info[indexPath.row].platform] = selectedNow
+        collectionView.reloadData()
+    }
 }

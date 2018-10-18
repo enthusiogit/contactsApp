@@ -39,7 +39,9 @@ class EditController: UIViewController, UINavigationControllerDelegate, UIImageP
         
         if fromGenerate {
             print("from generate. setting back title to back")
-            self.navigationController?.navigationBar.topItem?.title = "Back"
+            if self.navigationController?.navigationBar.topItem != nil {
+                self.navigationController!.navigationBar.topItem!.title = "Back"
+            }
         }
     }
     

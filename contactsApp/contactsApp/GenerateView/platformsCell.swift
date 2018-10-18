@@ -11,5 +11,6 @@ import UIKit
 class platformsCell: UICollectionViewCell {
     
     @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var alphaLayer: UIView!
     
 }

@@ -77,16 +77,31 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
+                                                <view hidden="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9bG-gx-exg">
+                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="40"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                             </subviews>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="9bG-gx-exg" firstAttribute="leading" secondItem="9Ti-mS-WZs" secondAttribute="leading" id="CfP-9x-NgV"/>
                                             <constraint firstAttribute="bottom" secondItem="F93-hP-enA" secondAttribute="bottom" id="Dpi-dO-xhU"/>
+                                            <constraint firstAttribute="trailing" secondItem="9bG-gx-exg" secondAttribute="trailing" id="EzO-7D-F2J"/>
                                             <constraint firstItem="F93-hP-enA" firstAttribute="top" secondItem="9Ti-mS-WZs" secondAttribute="top" id="TbB-vT-C3h"/>
+                                            <constraint firstItem="9bG-gx-exg" firstAttribute="top" secondItem="9Ti-mS-WZs" secondAttribute="top" id="YQE-YH-llM"/>
                                             <constraint firstItem="F93-hP-enA" firstAttribute="leading" secondItem="9Ti-mS-WZs" secondAttribute="leading" id="bQZ-wX-Prp"/>
                                             <constraint firstAttribute="trailing" secondItem="F93-hP-enA" secondAttribute="trailing" id="cAG-vU-no9"/>
+                                            <constraint firstAttribute="bottom" secondItem="9bG-gx-exg" secondAttribute="bottom" id="ojX-Df-xC7"/>
                                         </constraints>
                                         <size key="customSize" width="90" height="90"/>
                                         <connections>
+                                            <outlet property="alphaLayer" destination="9bG-gx-exg" id="a6c-vP-Vxz"/>
                                             <outlet property="image" destination="F93-hP-enA" id="l6o-hR-rKB"/>
                                         </connections>
                                     </collectionViewCell>
