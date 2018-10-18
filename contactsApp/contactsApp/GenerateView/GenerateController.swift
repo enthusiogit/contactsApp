@@ -65,7 +65,12 @@ class GenerateController: UIViewController {
         let filter = CIFilter(name: "CIQRCodeGenerator")
         filter?.setValue(qrData, forKey: "inputMessage")
         
-        let img = UIImage(ciImage: (filter?.outputImage)!)
+        guard let outputImage = filter?.outputImage else {
+            print("failed to create qr code image")
+            // FIXME SHOW ERROR MODAL
+            return
+        }
+        let img = UIImage(ciImage: outputImage).resizeImageTo(newWidth: 150.0)
         
         performSegue(withIdentifier: "updateQRImageSeg", sender: img)
     }
@@ -132,10 +137,10 @@ extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: "platformIdent", for: indexPath) as! platformsCell
         
-        guard let u = user, let imageName = utility.getStoredNameFromDisplayName(u.info[indexPath.row].platform), selected[u.info[indexPath.row].platform] != nil else { return itemCell }
+        guard let u = user, let imageName = utility.getStoredNameFromDisplayName(u.info[indexPath.row].platform), let selected = selected[u.info[indexPath.row].platform] else { return itemCell }
         
         itemCell.image.image = UIImage(imageLiteralResourceName: imageName)
-        itemCell.alphaLayer.isHidden = selected[u.info[indexPath.row].platform]!
+        itemCell.alphaLayer.isHidden = selected
         
         return itemCell
     }
