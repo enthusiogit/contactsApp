@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
     var userIDToPass: String?
     var userToPass: ContactStruct?
     var fromGenerate: Bool = false
+    var fromScan: Bool = false
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -28,13 +29,23 @@ class MainViewController: UIViewController {
             self.navigationController?.pushViewController(edit, animated: false)
             return
         }
+        if fromScan {
+            print("from generate. instantiating edit controller")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let contact = storyboard.instantiateViewController(withIdentifier: "ContactController")
+            let contactVC = contact as! ContactController
+            contactVC.fromScan = true
+            contactVC.user = userToPass
+            self.navigationController?.pushViewController(contactVC, animated: false)
+            return
+        }
         
         viewModel.reloadData = { [weak self] in self?.reloadData() }
         viewModel.populateData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if fromGenerate {
+        if fromGenerate || fromScan {
             print("dismissing navigation controller")
             self.navigationController?.dismiss(animated: false, completion: nil)
             return

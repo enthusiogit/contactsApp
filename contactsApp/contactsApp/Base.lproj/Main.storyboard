@@ -277,6 +277,7 @@
                     <connections>
                         <outlet property="scanFrame" destination="0n2-oe-1Q8" id="8Us-Pc-v2k"/>
                         <outlet property="scannerView" destination="ibY-I5-OpN" id="3TR-pe-ipQ"/>
+                        <segue destination="gqP-9c-ker" kind="presentation" identifier="scannerToViewSeg" id="aMM-ie-XCr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jux-nC-f18" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -458,7 +459,7 @@
         <!--Contact Controller-->
         <scene sceneID="qbC-mc-wO4">
             <objects>
-                <viewController id="SYJ-wS-laY" customClass="ContactController" customModule="contactsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactController" id="SYJ-wS-laY" customClass="ContactController" customModule="contactsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pTj-hi-3ab">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -987,6 +988,6 @@
         <image name="video" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="M3G-6e-XaR"/>
+        <segue reference="aMM-ie-XCr"/>
     </inferredMetricsTieBreakers>
 </document>

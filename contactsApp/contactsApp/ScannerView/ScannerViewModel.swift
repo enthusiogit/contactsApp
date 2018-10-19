@@ -16,7 +16,7 @@ class ScannerViewModel {
     var userString: String?
     
     var displayError: (()-> Void)?
-    var displaySuccess: (()-> Void)?
+    var displaySuccess: ((ContactStruct)-> Void)?
     
     init() {
         context = appDelegate.persistentContainer.viewContext
@@ -38,11 +38,12 @@ class ScannerViewModel {
             }
             if UtilitiesManager.shared.saveContact(myself: false, contact: result.contactsApp) {
                 print("successfully saved new contact")
+                self.displaySuccess?(result.contactsApp)
             } else {
                 print("failed to save new contact")
+                self.displayError?()
             }
-            
-            self.displaySuccess!()
+
         } catch {
             print("error parsing json. err:", error)
             return

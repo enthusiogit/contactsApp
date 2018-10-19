@@ -13,26 +13,38 @@ class ContactController: UIViewController {
     var user: ContactStruct?
     var platforms: [String] = []
     var platformValues: [String] = []
+    var fromScan: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        for info in (user?.info)! {
+        guard let u = user else { return }
+        for info in u.info {
             platforms.append(info.platform)
             platformValues.append(info.value)
+        }
+        
+        if fromScan {
+            print("from generate. setting back title to back")
+            if self.navigationController?.navigationBar.topItem != nil {
+                self.navigationController!.navigationBar.topItem!.title = "Back"
+            }
         }
     }
 }
 
 extension ContactController: UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegateFlowLayout {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return platforms.count + 1
+        return (user == nil) ? 0 : platforms.count + 1
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         if indexPath.row == 0 {
             let expanded = tableView.dequeueReusableCell(withIdentifier: "contactExpandedCell", for: indexPath) as! ContactExpandedCell
             
-            expanded.name.text = (user?.firstName)! + " " + (user?.lastName)!
+            guard let u = user else { return expanded }
+            
+            let lastName = (u.lastName != nil) ? " " + u.lastName! : ""
+            expanded.name.text = u.firstName + lastName
             
             expanded.messageButton.addTarget(self, action: #selector(messageButtonTapped), for: UIControlEvents.touchUpInside)
             

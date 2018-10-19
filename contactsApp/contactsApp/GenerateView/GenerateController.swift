@@ -139,7 +139,15 @@ extension GenerateController: UICollectionViewDelegate, UICollectionViewDataSour
         
         guard let u = user, let imageName = utility.getStoredNameFromDisplayName(u.info[indexPath.row].platform), let selected = selected[u.info[indexPath.row].platform] else { return itemCell }
         
-        itemCell.image.image = UIImage(imageLiteralResourceName: imageName)
+        let image = UIImage(imageLiteralResourceName: imageName)
+        
+//        var image = UIImage(imageLiteralResourceName: imageName)
+//        let size = CGSize(width: 80.0, height: 80.0)
+//        if image.size != size {
+//            image = image.resized(to: size)
+//        }
+        
+        itemCell.image.image = image
         itemCell.alphaLayer.isHidden = selected
         
         return itemCell

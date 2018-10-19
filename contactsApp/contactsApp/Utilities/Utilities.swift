@@ -172,6 +172,12 @@ class UtilitiesManager {
 
 extension UIImage {
     
+    func resized(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
+    
     func resizeImageTo(newWidth: CGFloat) -> UIImage {
         let scale = newWidth / size.width
         let newHeight = size.height * scale
