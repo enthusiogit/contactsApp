@@ -67,6 +67,8 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
     }
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        // https://stackoverflow.com/questions/20746413/ios-correctly-stop-avcapturesession
+        // another fix that freezes the screen -> video.connection?.isEnabled
         if gotQROutput { return }
         if metadataObjects.count != 0 {
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
